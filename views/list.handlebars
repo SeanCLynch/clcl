@@ -1,0 +1,24 @@
+<h2>{{ username }} : {{ listname }}</h2>
+
+<div id="list">
+{{#each list}}
+    <div class="list-item">
+        <input name="" type="checkbox">
+        <label for="">{{ this }}</label>
+    </div>
+{{/each}}
+</div>
+
+<div class="controls">
+    <button>Add Item</button>
+</div>
+<div class="controls">
+    <button>Save</button>
+    <button>Fork</button>
+    <button>Export Data</button>
+</div>
+<div class="controls">
+    <button>Delete</button>
+</div>
+
+
