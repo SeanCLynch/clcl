@@ -31,9 +31,26 @@
 </div>
 
 <div class="controls">
-    <button>Save</button>
+    <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
+        <button name="save-list">Save</button>
+    </form>
+</div>
+
+<div class="controls">
     <button>Fork</button>
-    <button>Export Data</button>
+</div>
+
+<div class="controls">
+    <form action="/api/list/{{ username }}/{{ listname }}/export" method="post">
+        <select name="exportFormat">
+            <option value="">Please select a data format</option>
+            <option value="txt">txt</option>
+            <option value="csv">csv</option>
+            <option value="pdf">pdf</option>
+        </select>
+
+        <button name="export-data" value="edit">Export Data</button>
+    </form>
 </div>
 
 <div class="controls">

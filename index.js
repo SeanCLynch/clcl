@@ -114,6 +114,7 @@ app.post('/api/list/:username/:listname/add', async (req, res) => {
     });
 });
 
+// Edit an existing item on a query-params specified list. 
 app.post('/api/list/:username/:listname/edit', async (req, res) => {
     let item_index = req.body.editItem;
     let new_text = req.body.editItemText;
@@ -122,9 +123,9 @@ app.post('/api/list/:username/:listname/edit', async (req, res) => {
     });
 });
 
-// TODO: Redirect to '/:username/:listname'
-app.post('/api/list/save', async (req, res) => {
-    res.send('save list');
+// Save the query-params specified list, sort of unnecessary tbh.
+app.post('/api/list/:username/:listname/save', async (req, res) => {
+    res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
 });
 
 // TODO: Redirect to '/:username/:listname'
@@ -132,10 +133,13 @@ app.post('/api/list/fork', async (req, res) => {
     res.send('fork list');
 });
 
-// TODO (medium): Add dropdown (for format).
-// TODO: Redirect to '/:username/:listname'
-app.post('/api/list/export', async (req, res) => {
-    res.send('export list');
+// Export the query-params specified list in the form specified format. 
+app.post('/api/list/:username/:listname/export', async (req, res) => {
+    let data_format = req.body.exportFormat;
+    // TODO: Export the data in txt format.
+    // TODO: Export the data in csv format.
+    // TODO: Export the data in pdf format.
+    res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
 });
 
 // Delete the query-param specified list. 
