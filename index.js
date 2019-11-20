@@ -48,32 +48,39 @@ app.use(cookieSession({
 // let webapp_controller = require('./controllers/webapp.js');
 // app.use('/', webapp_controller);
 
-// TODO: Display Homepage
+// Display homepage.
+// TODO (low): Change nav options based on login status.
 app.get('/', async (req, res) => {
     res.render('home', {
         "user": req.session.user
     });
 });
 
-// TODO: Display Signup Page
+// TODO (high): Display Signup Page
 app.get('/signup', async (req, res) => {
     res.send('Signup Page');
 });
 
-// TODO: Display Login Page
+// TODO (high): Display Login Page
 app.get('/login', async (req, res) => {
     res.send('Login Page');
 });
 
-// TODO: Display List
+// Display query-param specified list. 
+// TODO (low): Add "list not found" page, maybe just 404?
 app.get('/cl/:username/:listname', async (req, res) => {
     redis.lrange(`${req.params.username}:${req.params.listname}`, 0, -1, function (err, result) {
-        res.render('list', {
-            "user": req.session.user,
-            "list": result,
-            "username": req.params.username,
-            "listname": req.params.listname
-        });
+        if (result.length == 0) {
+            res.send("Sorry, no such list exists!");
+        } else {
+            res.render('list', {
+                "user": req.session.user,
+                "list": result,
+                "username": req.params.username,
+                "listname": req.params.listname
+            });
+        }
+        
     });
 });
 
@@ -100,9 +107,19 @@ app.post('/api/user/logout', async (req, res) => {
     res.send('logout user');
 });
 
-// TODO: Redirect to '/:username/:listname'
-app.post('/api/list/add', async (req, res) => {
-    res.send('add item to list');
+// Add a new item to the query-params specified list. 
+app.post('/api/list/:username/:listname/add', async (req, res) => {
+    redis.rpush(`${req.params.username}:${req.params.listname}`, "New List Item", function (err, result) {
+        res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
+    });
+});
+
+app.post('/api/list/:username/:listname/edit', async (req, res) => {
+    let item_index = req.body.editItem;
+    let new_text = req.body.editItemText;
+    redis.lset(`${req.params.username}:${req.params.listname}`, item_index, new_text, function (err, result) {
+        res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
+    });
 });
 
 // TODO: Redirect to '/:username/:listname'
@@ -115,14 +132,17 @@ app.post('/api/list/fork', async (req, res) => {
     res.send('fork list');
 });
 
+// TODO (medium): Add dropdown (for format).
 // TODO: Redirect to '/:username/:listname'
 app.post('/api/list/export', async (req, res) => {
     res.send('export list');
 });
 
-// TODO: Redirect to '/'
-app.post('/api/list/delete', async (req, res) => {
-    res.send('delete list');
+// Delete the query-param specified list. 
+app.post('/api/list/:username/:listname/delete', async (req, res) => {
+    redis.del(`${req.params.username}:${req.params.listname}`, function (err, results) {
+        res.redirect('/');
+    });
 });
 
 // Start webserver ---------------------------------------------------------------------------------

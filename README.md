@@ -49,7 +49,7 @@ Unlike a surgeon forgetting to wash his hands | a pilot panicking in a storm | a
 * `redis-server` - start redis server.
 * `npm run seed` - seed db with sample lists. 
 * `npm start`    - start express server.
-* visit `localhost:4001/` and enjoy!
+* Visit `localhost:4001/` and enjoy!
 
 
 ## Contributors:

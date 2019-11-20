@@ -10,15 +10,36 @@
 </div>
 
 <div class="controls">
-    <button>Add Item</button>
+    <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
+        <button name="additem" value="add">Add Item</button>
+    </form>
 </div>
+
+<div class="controls">
+    <form action="/api/list/{{ username }}/{{ listname }}/edit" method="post">
+        <select name="editItem">
+            <option value="">Please select an item to edit</option>
+            {{#each list}}
+                <option value="{{ @index }}">{{ this }}</option>
+            {{/each}}
+        </select>
+
+        <input name="editItemText" placeholder="Edit text here">
+
+        <button name="edit-item" value="edit">Edit Item</button>
+    </form>
+</div>
+
 <div class="controls">
     <button>Save</button>
     <button>Fork</button>
     <button>Export Data</button>
 </div>
+
 <div class="controls">
-    <button>Delete</button>
+    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
+        <button name="delete" value="delete">Delete</button>
+    </form>
 </div>
 
 
