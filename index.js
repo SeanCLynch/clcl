@@ -66,6 +66,13 @@ app.get('/login', async (req, res) => {
     res.send('Login Page');
 });
 
+app.get('/random', async (req, res) => {
+    redis.randomkey(function (err, result) {
+        let random_key = result.split(':');
+        res.redirect(`/cl/${random_key[0]}/${random_key[1]}/`);
+    });
+});
+
 // Display query-param specified list. 
 // TODO (low): Add "list not found" page, maybe just 404?
 app.get('/cl/:username/:listname', async (req, res) => {
@@ -128,7 +135,7 @@ app.post('/api/list/:username/:listname/save', async (req, res) => {
     res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
 });
 
-// TODO: Redirect to '/:username/:listname'
+// TODO: Redirect to '/:username/:listname' once we have user-accounts.
 app.post('/api/list/fork', async (req, res) => {
     res.send('fork list');
 });
