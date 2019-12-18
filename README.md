@@ -107,4 +107,18 @@ __Competitors (?):__
 
 # TODO: 
 
+
+* Add Sign-Up / Log-On pages & auth system.
+* Add User page that lists your checklists.
+* Add forking mechanism.
+* Add basic export mechanisms.
+
+* Add tests.
+* Determine efficient deployment process (pm2, etc).
 * Update license.
+* Do light security audit.
+
+* Add legit checklist examples x10
+* Share with various groups.
+
+* Explore business class accounts.

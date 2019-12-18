@@ -49,23 +49,23 @@ app.use(cookieSession({
 // app.use('/', webapp_controller);
 
 // Display homepage.
-// TODO (low): Change nav options based on login status.
 app.get('/', async (req, res) => {
     res.render('home', {
-        "user": req.session.user
+        "user": req.session.username
     });
 });
 
-// TODO (high): Display Signup Page
+// Display the signup page for new users. 
 app.get('/signup', async (req, res) => {
-    res.send('Signup Page');
+    res.render('signup');
 });
 
-// TODO (high): Display Login Page
+// Display login page. 
 app.get('/login', async (req, res) => {
-    res.send('Login Page');
+    res.render('login');
 });
 
+// Fetches a random list from the current db.
 app.get('/random', async (req, res) => {
     redis.randomkey(function (err, result) {
         let random_key = result.split(':');
@@ -74,20 +74,27 @@ app.get('/random', async (req, res) => {
 });
 
 // Display query-param specified list. 
-// TODO (low): Add "list not found" page, maybe just 404?
 app.get('/cl/:username/:listname', async (req, res) => {
     redis.lrange(`${req.params.username}:${req.params.listname}`, 0, -1, function (err, result) {
         if (result.length == 0) {
             res.send("Sorry, no such list exists!");
         } else {
             res.render('list', {
-                "user": req.session.user,
+                "user": req.session.username,
                 "list": result,
                 "username": req.params.username,
                 "listname": req.params.listname
             });
         }
         
+    });
+});
+
+// User's Homepage/Dashboard.
+app.get('/u', async (req, res) => {
+    if (!req.session.username) res.redirect('/login');
+    res.render('dashboard', {
+        "user": req.session.username
     });
 });
 
@@ -99,19 +106,29 @@ app.get('/api/ping', async (req, res) => {
   res.send('Pong!');
 });
 
-// TODO: Redirect to '/'
+// Redirect to '/u'
 app.post('/api/user/create', async (req, res) => {
-    res.send('create user');
+    let user_email = req.body.userEmail;
+    let user_password = req.body.userPassword;
+
+    // Set cookie. 
+    req.session.username = user_email;
+
+    // TODO: Encrypt password & store it. 
+    redis.hset(user_email, 'password', user_password, function (err, result) {
+        res.redirect('/u');
+    });
 });
 
-// TODO: Redirect to '/'
+// TODO: Redirect to '/u'
 app.post('/api/user/login', async (req, res) => {
     res.send('login user');
 });
 
-// TODO: Redirect to '/'
-app.post('/api/user/logout', async (req, res) => {
-    res.send('logout user');
+// Log user out and redirect to '/'
+app.get('/api/user/logout', async (req, res) => {
+    req.session = null;
+    res.redirect('/');
 });
 
 // Add a new item to the query-params specified list. 
