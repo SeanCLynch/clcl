@@ -107,18 +107,24 @@ __Competitors (?):__
 
 # TODO: 
 
+Users
+* (high) Should user accounts be implemented in something other than redis? sqlite?
+* (high) Add login page.
+* (medium) Add list of checklists to user dashboard.
+* (low) Add account delete to user dashboard.
 
-* Add Sign-Up / Log-On pages & auth system.
-* Add User page that lists your checklists.
-* Add forking mechanism.
-* Add basic export mechanisms.
+Lists
+* (high) Add forking mechanism.
+* (medium) Add basic export mechanisms.
 
-* Add tests.
-* Determine efficient deployment process (pm2, etc).
-* Update license.
-* Do light security audit.
+DevOps
+* (high) Add tests.
+* (high) Determine efficient deployment process (pm2, etc).
+* (medium) Update license.
+* (medium) Do light security audit.
+* (low) How to make redis persistant.
 
-* Add legit checklist examples x10
-* Share with various groups.
-
-* Explore business class accounts.
+Marketing
+* (low) Add legit checklist examples x10
+* (low) Share with various groups.
+* (low) Explore business class accounts.
