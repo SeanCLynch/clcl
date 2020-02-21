@@ -98,6 +98,13 @@ __Examples of uses:__
 * https://www.nature.com/news/hospital-checklists-are-meant-to-save-lives-so-why-do-they-often-fail-1.18057 
 
 
+__Traction Channels:__
+* Viral Marketing using collaboration, embedded.
+* Search Engine Marketing/Optimization.
+* Content Marketing.
+* Community Building.
+
+
 __Competitors (?):__
 * https://process.st/
 * https://www.forgett.com/

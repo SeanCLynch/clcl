@@ -98,3 +98,7 @@ nav div {
 .controls {
     margin-bottom: 0.5rem;
 }
+
+#flash-msg {
+    color: red;
+}

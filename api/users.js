@@ -20,7 +20,33 @@ router.post('/create', async (req, res) => {
 
 // TODO: Redirect to '/u'
 router.post('/login', async (req, res) => {
-    res.send('login user');
+    let user_email = req.body.userEmail;
+    let user_password = req.body.userPassword;
+
+    redis.hget(user_email, 'password', function (err, result) {
+
+        if (!result) { 
+            res.render('login', {
+                "flashMsg": "No such user exists!"
+            });
+            return;
+        } 
+
+        if (result === user_password) { 
+
+            // Set cookie.
+            req.session.username = user_email;
+            res.redirect('/u'); 
+            return;
+
+        } else {
+            res.render('login', {
+                "flashMsg": "Bad password!"
+            });
+            return;
+        }
+        
+    });
 });
 
 // Log user out and redirect to '/'
