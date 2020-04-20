@@ -50,7 +50,7 @@ Unlike a surgeon forgetting to wash his hands | a pilot panicking in a storm | a
 * `npm run seed` - seed db with sample lists. 
 * `npm start`    - start express server.
 * Visit `localhost:4001/` and enjoy!
-
+* Can run `redis-commander` and visit `localhost:8081/` for GUI.
 
 ## Contributors:
 * Seanclynch

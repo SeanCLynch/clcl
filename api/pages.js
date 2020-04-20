@@ -22,10 +22,12 @@ router.get('/login', async (req, res) => {
 });
 
 // Fetches a random list from the current db.
+// TODO: once there are enough lists, add randomization on iterator & such.
 router.get('/random', async (req, res) => {
-    redis.randomkey(function (err, result) {
-        let random_key = result.split(':');
-        res.redirect(`/cl/${random_key[0]}/${random_key[1]}/`);
+    redis.scan('0', 'match', '*:*', function (err, result) {
+        let ran_key = Math.floor(Math.random() * result[1].length);
+        let ran_list = result[1][ran_key].split(':');
+        res.redirect(`/cl/${ran_list[0]}/${ran_list[1]}/`);
     });
 });
 
