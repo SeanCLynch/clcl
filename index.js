@@ -31,9 +31,6 @@ app.use(bodyParser.urlencoded({
 const Redis = require('ioredis');
 let redis = new Redis();
 
-const sqlite3 = require('sqlite3').verbose();
-let sqldb = new sqlite3.Database('db/dev');
-
 // Crypto Config -----------------------------------------------------------------------------------
 
 let bcrypt = require('bcryptjs');

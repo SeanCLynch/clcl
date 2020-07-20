@@ -2,6 +2,12 @@
     <div>Your Dashboard</div>
 </section>
 
+<section id="actions">
+    <form action="/api/list/{{ user }}/{{ listname }}/create" method="post">
+        <button name="createlist" value="create">New Checklist</button>
+    </form>
+</section>
+
 <section id="examples">
     <div>Your lists will appear here:</div>
 </section>

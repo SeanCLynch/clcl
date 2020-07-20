@@ -4,11 +4,18 @@ let router = express.Router();
 const Redis = require('ioredis');
 let redis = new Redis();
 
+// Create a brand new checklist. 
+router.post('/:username/:listname/create', async (req, res) => {
+    res.send('creating!!!!');
+});
+
 // Add a new item to the query-params specified list. 
 router.post('/:username/:listname/add', async (req, res) => {
     redis.rpush(`${req.params.username}:${req.params.listname}`, "New List Item", function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
+
+    
 });
 
 // Edit an existing item on a query-params specified list. 

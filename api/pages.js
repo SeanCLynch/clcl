@@ -50,9 +50,16 @@ router.get('/cl/:username/:listname', async (req, res) => {
 
 // User's Homepage/Dashboard.
 router.get('/u', async (req, res) => {
+
+    // Redirect if not signed in.
     if (!req.session.username) res.redirect('/login');
-    res.render('dashboard', {
-        "user": req.session.username
+
+    // Assemble list of checklists. 
+    redis.keys(`${req.session.username}:*`, function (err, result) {
+        console.log(req.session.username, err, result);
+        res.render('dashboard', {
+            "user": req.session.username
+        });
     });
 });
 
