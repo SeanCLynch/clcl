@@ -28,6 +28,7 @@ router.post('/create', async (req, res) => {
     req.session.username = user_email;
 
     // TODO: Encrypt password & store it. 
+    // TODO: Check if username or password already exists. 
     let name_key = `users:${user_name}`;
     let auth_key = `auth:${user_email}`;
     redis.hset(name_key, 'email', user_email, function (err, result) {

@@ -112,26 +112,24 @@ __Competitors (?):__
 * https://devchecklists.com/
 * https://ch.ckl.st/home
 
-# TODO: 
+# Current Tasks: 
 
-Users
-* (high) Should user accounts be implemented in something other than redis? sqlite?
-* (high) Add login page.
-* (medium) Add list of checklists to user dashboard.
-* (low) Add account delete to user dashboard.
+For Users:
+TODO: Add list of checklists to user dashboard.
+TODO: Add account delete to user dashboard.
 
-Lists
-* (high) Add forking mechanism.
-* (medium) Add basic export mechanisms.
+For Lists:
+TODO: (high) Add forking mechanism.
+TODO: (medium) Add basic export mechanisms.
 
 DevOps
-* (high) Add tests.
-* (high) Determine efficient deployment process (pm2, etc).
-* (medium) Update license.
-* (medium) Do light security audit.
-* (low) How to make redis persistant.
+TODO: (high) Add tests.
+TODO: (high) Determine efficient deployment process (pm2, etc).
+TODO: (medium) Update license.
+TODO: (medium) Do light security audit.
+TODO: (high) How to make redis persistant.
 
 Marketing
-* (low) Add legit checklist examples x10
-* (low) Share with various groups.
-* (low) Explore business class accounts.
+TODO: (low) Add legit checklist examples x10
+TODO: (low) Share with various groups.
+TODO: (low) Explore business class accounts.

@@ -4,6 +4,11 @@ let router = express.Router();
 const Redis = require('ioredis');
 let redis = new Redis();
 
+/*
+    The List Key
+    "list:<username>:<listname>" is a list used for storing list items.     
+*/
+
 // Create a brand new checklist. 
 router.post('/:username/:listname/create', async (req, res) => {
     res.send('creating!!!!');
@@ -11,7 +16,7 @@ router.post('/:username/:listname/create', async (req, res) => {
 
 // Add a new item to the query-params specified list. 
 router.post('/:username/:listname/add', async (req, res) => {
-    redis.rpush(`${req.params.username}:${req.params.listname}`, "New List Item", function (err, result) {
+    redis.rpush(`list:${req.params.username}:${req.params.listname}`, "New List Item", function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
 
@@ -22,7 +27,7 @@ router.post('/:username/:listname/add', async (req, res) => {
 router.post('/:username/:listname/edit', async (req, res) => {
     let item_index = req.body.editItem;
     let new_text = req.body.editItemText;
-    redis.lset(`${req.params.username}:${req.params.listname}`, item_index, new_text, function (err, result) {
+    redis.lset(`list:${req.params.username}:${req.params.listname}`, item_index, new_text, function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
 });
@@ -48,7 +53,7 @@ router.post('/:username/:listname/export', async (req, res) => {
 
 // Delete the query-param specified list. 
 router.post('/:username/:listname/delete', async (req, res) => {
-    redis.del(`${req.params.username}:${req.params.listname}`, function (err, results) {
+    redis.del(`list:${req.params.username}:${req.params.listname}`, function (err, results) {
         res.redirect('/');
     });
 });

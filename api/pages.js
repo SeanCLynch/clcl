@@ -52,11 +52,10 @@ router.get('/cl/:username/:listname', async (req, res) => {
 router.get('/u', async (req, res) => {
 
     // Redirect if not signed in.
-    if (!req.session.username) res.redirect('/login');
+    if (!req.session.username) return res.redirect('/login');
 
     // Assemble list of checklists. 
     redis.keys(`${req.session.username}:*`, function (err, result) {
-        console.log(req.session.username, err, result);
         res.render('dashboard', {
             "user": req.session.username
         });
