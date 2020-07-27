@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express   = require('express');
 const app       = express();
-const port      = process.env.API_PORT;
 
 // Logging Config ----------------------------------------------------------------------------------
 
@@ -58,9 +57,5 @@ app.use('/api/user/', users_controller);
 
 let checklists_controller = require('./api/checklists.js');
 app.use('/api/list/', checklists_controller);
-
-// Start webserver ---------------------------------------------------------------------------------
-
-app.listen(port, () => console.log(`Listening on ${port}!`));
 
 module.exports = app;

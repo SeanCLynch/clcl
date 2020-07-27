@@ -10,12 +10,16 @@ let app = require('../index.js');
 const Redis = require('ioredis');
 let redis = new Redis();
 
-describe("basic pageloads", () => {
+describe("basic public routes", () => {
     beforeAll(() => {
         redis.del('list:sean:test');
         redis.rpush('list:sean:test', "ITEM #1");
         redis.rpush('list:sean:test', "ITEM #2");
         redis.rpush('list:sean:test', "ITEM #3");
+    });
+
+    afterAll(() => {
+        redis.del('list:sean:test');
     });
 
     test("/", async (done) => {
