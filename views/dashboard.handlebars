@@ -3,11 +3,19 @@
 </section>
 
 <section id="actions">
-    <form action="/api/list/{{ user }}/{{ listname }}/create" method="post">
+    <form action="/api/list/create" method="post">
+        <input name="username" type="hidden" value="{{ user }}" />
+        <input name="listname" placeholder="New List Title" />
         <button name="createlist" value="create">New Checklist</button>
     </form>
 </section>
 
 <section id="examples">
-    <div>Your lists will appear here:</div>
+    <div>Your Lists</div>
+    {{#each lists}}
+        <div class="list-entry">
+            <a href="{{ listLink this }}">{{ listTitle this }}</a>
+        </div>
+    {{/each}}
 </section>
+

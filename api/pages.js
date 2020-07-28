@@ -13,27 +13,35 @@ router.get('/', async (req, res) => {
 
 // Display the signup page for new users. 
 router.get('/signup', async (req, res) => {
+
+    // Redirect if logged in.
+    if (req.session.username) return res.redirect('/u');
+
     res.render('signup');
 });
 
 // Display login page. 
 router.get('/login', async (req, res) => {
+
+    // Redirect if logged in.
+    if (req.session.username) return res.redirect('/u');
+    
     res.render('login');
 });
 
 // Fetches a random list from the current db.
 // TODO: once there are enough lists, add randomization on iterator & such.
 router.get('/random', async (req, res) => {
-    redis.scan('0', 'match', '*:*', function (err, result) {
+    redis.scan('0', 'match', 'list:*:*', function (err, result) {
         let ran_key = Math.floor(Math.random() * result[1].length);
         let ran_list = result[1][ran_key].split(':');
-        res.redirect(`/cl/${ran_list[0]}/${ran_list[1]}/`);
+        res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
     });
 });
 
 // Display query-param specified list. 
 router.get('/cl/:username/:listname', async (req, res) => {
-    redis.lrange(`${req.params.username}:${req.params.listname}`, 0, -1, function (err, result) {
+    redis.lrange(`list:${req.params.username}:${req.params.listname}`, 0, -1, function (err, result) {
         if (result.length == 0) {
             res.send("Sorry, no such list exists!");
         } else {
@@ -53,11 +61,13 @@ router.get('/u', async (req, res) => {
 
     // Redirect if not signed in.
     if (!req.session.username) return res.redirect('/login');
-
+    
     // Assemble list of checklists. 
-    redis.keys(`${req.session.username}:*`, function (err, result) {
+    let match_string = `list:${req.session.username}:*`;
+    redis.scan('0', 'match', match_string, function (err, result) {
         res.render('dashboard', {
-            "user": req.session.username
+            "user": req.session.username,
+            "lists": result[1]
         });
     });
 });

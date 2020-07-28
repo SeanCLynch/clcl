@@ -10,8 +10,13 @@ let redis = new Redis();
 */
 
 // Create a brand new checklist. 
-router.post('/:username/:listname/create', async (req, res) => {
-    res.send('creating!!!!');
+router.post('/create', async (req, res) => {
+    let username = req.body.username;
+    let listname = req.body.listname;
+    let listkey = `list:${username}:${listname}`;
+    redis.lpush(listkey, "First Item", function (err, result) {
+        res.redirect(`/cl/${username}/${listname}`);
+    });
 });
 
 // Add a new item to the query-params specified list. 

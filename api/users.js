@@ -25,7 +25,8 @@ router.post('/create', async (req, res) => {
     let user_password = req.body.userPassword;
 
     // Set cookie. 
-    req.session.username = user_email;
+    req.session.username = user_name;
+    req.session.useremail = user_email;
 
     // TODO: Encrypt password & store it. 
     // TODO: Check if username or password already exists. 
@@ -55,10 +56,16 @@ router.post('/login', async (req, res) => {
 
         if (result === user_password) { 
 
-            // Set cookie.
-            req.session.username = user_email;
-            res.redirect('/u'); 
-            return;
+            redis.hget(auth_key, 'namekey', function (err, result) {
+
+                // Set cookie.
+                let user_name = result.split(':')[1];
+                req.session.username = user_name;
+                req.session.useremail = user_email;
+                res.redirect('/u'); 
+                return;
+                
+            });
 
         } else {
             res.render('login', {

@@ -10,7 +10,13 @@ app.use(morgan(':status :method :url - :response-time ms'));
 // View Config -------------------------------------------------------------------------------------
 
 const exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  helpers: {
+    listLink: function (str) { return `/cl/${str.substring(5).replace(':', '/')}`; },
+    listTitle: function (str) { return str.split(':')[2]; }
+  }
+}));
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
