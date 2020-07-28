@@ -5,7 +5,9 @@ const app       = express();
 // Logging Config ----------------------------------------------------------------------------------
 
 const morgan = require('morgan');
-app.use(morgan(':status :method :url - :response-time ms'));
+if (process.env.NODE_ENV != "test") {
+  app.use(morgan(':status :method :url - :response-time ms'));
+}
 
 // View Config -------------------------------------------------------------------------------------
 

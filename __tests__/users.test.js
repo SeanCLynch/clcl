@@ -25,26 +25,32 @@ describe("user signup process", () => {
     });
 });
 
-// describe("user login process", () => {
-//     beforeAll(() => {
-//         redis.del('list:sean:test');
-//         redis.rpush('list:sean:test', "ITEM #1");
-//         redis.rpush('list:sean:test', "ITEM #2");
-//         redis.rpush('list:sean:test', "ITEM #3");
-//     });
+describe("user login process", () => {
+    beforeAll(() => {
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
+        redis.hset('users:sean', 'email', 'sean@cl.com');
+        redis.hset('auth:sean@cl.com', 'password', 'password', 'namekey', 'users:sean');
+    });
 
-//     afterAll(() => {
-//         redis.del('list:sean:test');
-//     });
+    afterAll(() => {
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
+    });
 
-//     test("/", async (done) => {
-//         let response = await request(app).get('/');
-//         expect(response.statusCode).toBe(200);
-//         done();
-//     });
-// });
+    test("POST /login", async (done) => {
+        let response = await request(app)
+            .post('/api/user/login')
+            .send('userEmail=sean@cl.com')
+            .send('userPassword=password');
+        expect(response.statusCode).toBe(302);
+        expect(response.headers['set-cookie'][0]).toMatch(/checklistingSession/);
+        done();
+    });
+});
 
-// describe("user basic auth process", () => {
+// view dashboard (redirect), signup, dashboard, logout, dashboard, login, dashboard.
+// describe("user basic full auth process", () => {
 //     beforeAll(() => {
 //         redis.del('list:sean:test');
 //         redis.rpush('list:sean:test', "ITEM #1");

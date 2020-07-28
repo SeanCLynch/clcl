@@ -30,7 +30,7 @@ router.get('/login', async (req, res) => {
 });
 
 // Fetches a random list from the current db.
-// TODO: once there are enough lists, add randomization on iterator & such.
+// TODO: Add iterator and further randomization.
 router.get('/random', async (req, res) => {
     redis.scan('0', 'match', 'list:*:*', function (err, result) {
         let ran_key = Math.floor(Math.random() * result[1].length);
@@ -52,11 +52,11 @@ router.get('/cl/:username/:listname', async (req, res) => {
                 "listname": req.params.listname
             });
         }
-        
     });
 });
 
 // User's Homepage/Dashboard.
+// TODO: Add iterator and further randomization.
 router.get('/u', async (req, res) => {
 
     // Redirect if not signed in.

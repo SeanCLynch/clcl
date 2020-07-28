@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "jest tests",
+    "test": "NODE_ENV=test jest tests --verbose",
     "seed": "node tasks/seed.js"
   },
   "author": "seanclynch",

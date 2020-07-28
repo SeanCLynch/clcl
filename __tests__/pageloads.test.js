@@ -22,37 +22,37 @@ describe("basic public routes", () => {
         redis.del('list:sean:test');
     });
 
-    test("/", async (done) => {
+    test("GET /", async (done) => {
         let response = await request(app).get('/');
         expect(response.statusCode).toBe(200);
         done();
     });
 
-    test("/signup", async (done) => {
+    test("GET /signup", async (done) => {
         let response = await request(app).get('/signup');
         expect(response.statusCode).toBe(200);
         done();
     });
 
-    test("/login", async (done) => {
+    test("GET /login", async (done) => {
         let response = await request(app).get('/login');
         expect(response.statusCode).toBe(200);
         done();
     });
 
-    test("/cl/:username/:listname", async (done) => {
+    test("GET /cl/:username/:listname", async (done) => {
         let response = await request(app).get('/cl/sean/test');
         expect(response.statusCode).toBe(200);
         done();
     });
 
-    test("/random", async (done) => {
+    test("GET /random", async (done) => {
         let response = await request(app).get('/random');
         expect(response.statusCode).toBe(302);
         done();
     });
 
-    test("/u", async (done) => {
+    test("GET /u", async (done) => {
         let response = await request(app).get('/u');
         expect(response.statusCode).toBe(302);
         done();
