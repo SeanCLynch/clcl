@@ -5,10 +5,15 @@ describe("jest is running", () => {
     });
 });
 
+
 let request = require('supertest');
 let app = require('../index.js');
 const Redis = require('ioredis');
 let redis = new Redis();
+
+afterAll(() => {
+    redis.disconnect();
+});
 
 describe("basic public routes", () => {
     beforeAll(() => {

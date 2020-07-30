@@ -4,6 +4,10 @@ let app = require('../index.js');
 const Redis = require('ioredis');
 let redis = new Redis();
 
+afterAll(() => {
+    redis.disconnect();
+});
+
 describe("user signup process", () => {
     afterAll(() => {
         redis.del('users:sean');
@@ -49,22 +53,68 @@ describe("user login process", () => {
     });
 });
 
-// view dashboard (redirect), signup, dashboard, logout, dashboard, login, dashboard.
-// describe("user basic full auth process", () => {
-//     beforeAll(() => {
-//         redis.del('list:sean:test');
-//         redis.rpush('list:sean:test', "ITEM #1");
-//         redis.rpush('list:sean:test', "ITEM #2");
-//         redis.rpush('list:sean:test', "ITEM #3");
-//     });
+let agent = request.agent(app);
+describe("user basic full auth process", () => {
+    beforeAll(() => {
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
+    });
 
-//     afterAll(() => {
-//         redis.del('list:sean:test');
-//     });
+    afterAll(() => {
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
+    });
 
-//     test("/", async (done) => {
-//         let response = await request(app).get('/');
-//         expect(response.statusCode).toBe(200);
-//         done();
-//     });
-// });
+    test("GET /u (redirect)", async (done) => {
+        let response = await agent.get('/u');
+        expect(response.statusCode).toBe(302);
+        done();
+    });
+
+    test("POST /signup", async (done) => {
+        let response = await agent.post('/api/user/create')
+            .send('userName=sean')
+            .send('userEmail=sean@cl.com')
+            .send('userPassword=sean');
+        expect(response.statusCode).toBe(302);
+        expect(response.headers['set-cookie'][0]).toMatch(/checklistingSession/);
+
+        redis.hlen('users:sean', (err, result) => {
+            expect(result).toBeGreaterThan(0);
+            done();
+        });
+    });
+
+    test("GET /u (view)", async (done) => {
+        let response = await agent.get('/u');
+        expect(response.statusCode).toBe(200);
+        done();
+    });
+
+    test("GET /logout", async (done) => {
+        let response = await agent.get('/api/user/logout');
+        expect(response.statusCode).toBe(302);
+        done();
+    });
+
+    test("GET /u (redirect)", async (done) => {
+        let response = await agent.get('/u');
+        expect(response.statusCode).toBe(302);
+        done();
+    });
+
+    test("POST /login", async (done) => {
+        let response = await agent.post('/api/user/login')
+            .send('userEmail=sean@cl.com')
+            .send('userPassword=sean');
+        expect(response.statusCode).toBe(302);
+        expect(response.headers['set-cookie'][0]).toMatch(/checklistingSession/);
+        done();
+    });
+
+    test("GET /u (view)", async (done) => {
+        let response = await agent.get('/u');
+        expect(response.statusCode).toBe(200);
+        done();
+    });
+});
