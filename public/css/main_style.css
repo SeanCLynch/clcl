@@ -1,3 +1,17 @@
+/* Colors:
+    Main Purple - 9300D3 (darkviolet)
+
+    Main Purple Hues Light - B719FC
+    Main Purple Hues Light - B304FF
+    Main Purple Hues Dark - 6F009F
+    Main Purple Hues Dark - 57007D
+
+    Adjacent Blue - 3B00D6
+    Adjacent Pink - E80076
+
+    Complimentary Yellow - F4FE00
+*/
+
 html, body {
     height: 100%;
     margin: 0px;
@@ -12,15 +26,42 @@ a:visited {
     color: darkviolet;
 }
 
+button {
+	box-shadow:inset 0px 1px 0px 0px #efdcfb;
+	background:linear-gradient(to bottom, #B304FF 5%, darkviolet 100%);
+	background-color:#B304FF;
+	border-radius:5px;
+	border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9752cc;
+}
+button:hover {
+	background:linear-gradient(to bottom, darkviolet 5%, #B304FF 100%);
+	background-color:darkviolet;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+
+     
+
 body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='Artboard-5' fill='%23a779e9' fill-opacity='0.15' fill-rule='nonzero'%3E%3Cpath d='M6 18h12V6H6v12zM4 4h16v16H4V4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 #body {
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: #F6F6F6;
     color: #333;
-    width: 800px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -28,11 +69,13 @@ section {
     margin-bottom: 1.5rem;
 }
 
+/* --- */
+
 nav {
     background-color: darkviolet;
     display: flex;
     padding: 1rem;
-    width: 800px;
+    max-width: 800px;
     margin: 0 auto;
     color: white;
 }
@@ -41,44 +84,92 @@ nav a {
     color: white !important;
 }
 
-nav div:first-child {
+nav #logo {
     font-weight: bold;
     font-size: larger;
+    margin-right: 1rem;
 }
 
-nav div {
+nav #mainmenu {
+    display: flex;
+}
+nav #mainmenu div {
     margin-right: 1.5rem;
     line-height:22px;
 }
 
+/* --- */
+
 #splash {
     margin-top: 1rem;
 }
-
 #splash .desc {
     margin: 0.5rem;
 }
-
 #splash div:first-child {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 #examples div:first-child {
-    font-size: 20px;
+    font-size: 22px;
 }
-
 #examples .example {
-    margin-left: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem;
 }
 
 #features div:first-child {
-    font-size: 20px;
+    font-size: 22px;
 }
-
 #features .subtitle {
     margin: 0.5rem;
 }
+
+#statistics div:first-child {
+    font-size: 22px;
+}
+#statistics .subtitle {
+    margin: 0.5rem;
+}
+#statistics .subtitle span {
+    color: darkviolet;
+}
+
+#pricing div:first-child {
+    font-size: 22px;
+}
+#pricing .subtitle {
+    margin: 0.5rem;
+}
+
+#calltoaction div:first-child {
+    font-size: 22px;
+}
+#calltoaction button {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+/* --- */
+
+#footer {
+    background-color: darkviolet;
+    display: flex;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: white;
+}
+
+#footer a {
+    color: white !important;
+}
+
+#footer div {
+    margin-right: 1.5rem;
+    line-height:22px;
+}
+
+/* --- */
 
 #list {
     margin-bottom: 1.5rem;

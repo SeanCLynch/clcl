@@ -115,7 +115,6 @@ __Competitors (?):__
 # Current Tasks: 
 
 For Users:
-TODO: Add list of checklists to user dashboard.
 TODO: Add account delete to user dashboard.
 
 For Lists:
@@ -123,7 +122,7 @@ TODO: (high) Add forking mechanism.
 TODO: (medium) Add basic export mechanisms.
 
 DevOps
-TODO: (high) Add tests.
+TODO: (medium) Add tests.
 TODO: (high) Determine efficient deployment process (pm2, etc).
 TODO: (medium) Update license.
 TODO: (medium) Do light security audit.
