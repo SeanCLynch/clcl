@@ -1,5 +1,5 @@
 let app = require('./index.js');
-const port      = process.env.API_PORT;
+const port = process.env.API_PORT;
 
 // Start webserver ---------------------------------------------------------------------------------
 

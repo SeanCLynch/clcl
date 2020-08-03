@@ -12,6 +12,8 @@
     Complimentary Yellow - F4FE00
 */
 
+/* Global Styles */
+
 html, body {
     height: 100%;
     margin: 0px;
@@ -20,7 +22,6 @@ html, body {
 a:link {
     text-decoration: none;
 }
-
 a:visited {
     text-decoration: none;
     color: darkviolet;
@@ -50,6 +51,9 @@ button:active {
 	position:relative;
 	top:1px;
 }
+button.use-caution {
+    color: #F4FE00;
+}
 
      
 
@@ -69,7 +73,7 @@ section {
     margin-bottom: 1.5rem;
 }
 
-/* --- */
+/* Navigation Menu */
 
 nav {
     background-color: darkviolet;
@@ -98,7 +102,7 @@ nav #mainmenu div {
     line-height:22px;
 }
 
-/* --- */
+/* Landing Page */
 
 #splash {
     margin-top: 1rem;
@@ -149,7 +153,19 @@ nav #mainmenu div {
     margin-left: 0.5rem;
 }
 
-/* --- */
+/* Dashboard Styles */
+
+#account div:first-child {
+    font-size: 22px;
+    margin-bottom: 0.5rem;
+}
+
+.help-text {
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer Menu */
 
 #footer {
     background-color: darkviolet;
@@ -169,7 +185,7 @@ nav #mainmenu div {
     line-height:22px;
 }
 
-/* --- */
+/* Checklist Styles */
 
 #list {
     margin-bottom: 1.5rem;

@@ -4,6 +4,8 @@ let app = require('../index.js');
 const Redis = require('ioredis');
 let redis = new Redis();
 
+// TODO: Add delete user test. 
+
 afterAll(() => {
     redis.disconnect();
 });

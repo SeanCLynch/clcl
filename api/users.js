@@ -34,9 +34,33 @@ router.post('/create', async (req, res) => {
     let auth_key = `auth:${user_email}`;
     redis.hset(name_key, 'email', user_email, function (err, result) {
         redis.hset(auth_key, 'password', user_password, 'namekey', name_key, function (err2, result2) {
-            res.redirect('/u');
+            res.redirect(`/u/${user_name}`);
         });
     });
+});
+
+// Delete user account and redirect to landing page. 
+router.post('/delete', async (req, res) => {
+    let user_name = req.body.userName;
+    let user_email = req.body.userEmail;
+
+    let name_key = `users:${user_name}`;
+    let auth_key = `auth:${user_email}`;
+
+    // Delete all of user's checklists.
+    let match_string = `list:${user_name}:*`;
+    redis.scan('0', 'match', match_string, function (err, result) {
+        result[1].forEach(function (val, idx) {
+            redis.del(val);
+        });
+    });
+
+    // Delete user's auth and name keys. 
+    redis.del(name_key);
+    redis.del(auth_key);
+
+    req.session = null;
+    res.redirect('/');
 });
 
 // TODO: Unencrypt password.
@@ -62,7 +86,7 @@ router.post('/login', async (req, res) => {
                 let user_name = result.split(':')[1];
                 req.session.username = user_name;
                 req.session.useremail = user_email;
-                res.redirect('/u'); 
+                res.redirect(`/u/${user_name}`); 
                 return;
                 
             });

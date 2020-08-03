@@ -1,4 +1,4 @@
-<h2>{{ username }} : {{ listname }}</h2>
+<h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
 
 <div id="list">
 {{#each list}}
@@ -55,7 +55,7 @@
 
 <div class="controls">
     <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
-        <button name="delete" value="delete">Delete</button>
+        <button class="use-caution" name="delete" value="delete">Delete</button>
     </form>
 </div>
 

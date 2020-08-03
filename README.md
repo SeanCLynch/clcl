@@ -114,21 +114,28 @@ __Competitors (?):__
 
 # Current Tasks: 
 
+MVP Requirements:
+
 For Users:
-TODO: Add account delete to user dashboard.
+TODO: Add password encryption to user model. 
 
 For Lists:
-TODO: (high) Add forking mechanism.
-TODO: (medium) Add basic export mechanisms.
+TODO: Add forking mechanism.
+TODO: Add basic export mechanisms.
+TODO: Add username/listname blacklist. Disallow spaces.
 
-DevOps
-TODO: (medium) Add tests.
-TODO: (high) Determine efficient deployment process (pm2, etc).
-TODO: (medium) Update license.
-TODO: (medium) Do light security audit.
-TODO: (high) How to make redis persistant.
+For DevOps:
+TODO: Determine efficient deployment process (heroku, pm2, etc).
+TODO: Update license.
+TODO: Audit basic security measures.
+TODO: Add backup/persistance to redis.
 
-Marketing
-TODO: (low) Add legit checklist examples x10
-TODO: (low) Share with various groups.
-TODO: (low) Explore business class accounts.
+For Monitoring:
+TODO: Add usage statistics.
+TODO: Add roadmap. 
+
+For Marketing:
+TODO: Landing page should be mobile-ready.
+TODO: Add legit checklist examples x10
+TODO: Share with various groups.
+

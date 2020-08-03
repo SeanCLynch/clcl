@@ -57,16 +57,17 @@ router.get('/cl/:username/:listname', async (req, res) => {
 
 // User's Homepage/Dashboard.
 // TODO: Add iterator and further randomization.
-router.get('/u', async (req, res) => {
+router.get('/u/:username', async (req, res) => {
 
-    // Redirect if not signed in.
-    if (!req.session.username) return res.redirect('/login');
+    let is_users_dashboard = req.session.username == req.params.username;
     
     // Assemble list of checklists. 
-    let match_string = `list:${req.session.username}:*`;
+    let match_string = `list:${req.params.username}:*`;
     redis.scan('0', 'match', match_string, function (err, result) {
         res.render('dashboard', {
             "user": req.session.username,
+            "account": req.params.username,
+            "is_users_dashboard": is_users_dashboard,
             "lists": result[1]
         });
     });

@@ -1,7 +1,8 @@
 <section id="splash">
-    <div>Your Dashboard</div>
+    <div>{{ account }}'s Dashboard</div>
 </section>
 
+{{#if is_users_dashboard }}
 <section id="actions">
     <form action="/api/list/create" method="post">
         <input name="username" type="hidden" value="{{ user }}" />
@@ -9,9 +10,10 @@
         <button name="createlist" value="create">New Checklist</button>
     </form>
 </section>
+{{/if}}
 
 <section id="examples">
-    <div>Your Lists</div>
+    <div>Lists</div>
     {{#each lists}}
         <div class="list-entry">
             <a href="{{ listLink this }}">{{ listTitle this }}</a>
@@ -19,3 +21,14 @@
     {{/each}}
 </section>
 
+{{#if is_users_dashboard }}
+<section id="account">
+    <div>Your Account</div>
+    <div class="help-text">Deleting your account is permanent and will also delete all checklists and account info associated with your account. Please retype your username and email below to continue.</div>
+    <form action="/api/user/delete" method="post">
+        <input name="userName" placeholder="Account Username" />
+        <input name="userEmail" placeholder="Account Email" />
+        <button class="use-caution" name="deleteUser" value="delete">Delete Account</button>
+    </form>
+</section>
+{{/if}}

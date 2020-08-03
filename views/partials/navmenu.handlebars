@@ -5,7 +5,7 @@
     <div id="mainmenu">
         <div><a href="/random">Random List</a></div>
         {{#if user}}
-        <div><a href="/u">Dashboard</a></div>
+        <div><a href="/u/{{ user }}">Dashboard</a></div>
         <div><a href="/api/user/logout">Logout</a></div>
         {{else}}
         <div><a href="/signup">Signup</a></div>
