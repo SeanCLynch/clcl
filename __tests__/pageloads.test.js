@@ -21,10 +21,16 @@ describe("basic public routes", () => {
         redis.rpush('list:sean:test', "ITEM #1");
         redis.rpush('list:sean:test', "ITEM #2");
         redis.rpush('list:sean:test', "ITEM #3");
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
+        redis.hset('users:sean', 'email', 'sean@cl.com');
+        redis.hset('auth:sean@cl.com', 'password', 'password', 'namekey', 'users:sean');
     });
 
     afterAll(() => {
         redis.del('list:sean:test');
+        redis.del('users:sean');
+        redis.del('auth:sean@cl.com');
     });
 
     test("GET /", async (done) => {
@@ -57,9 +63,9 @@ describe("basic public routes", () => {
         done();
     });
 
-    test("GET /u", async (done) => {
-        let response = await request(app).get('/u');
-        expect(response.statusCode).toBe(302);
+    test("GET /u/sean", async (done) => {
+        let response = await request(app).get('/u/sean');
+        expect(response.statusCode).toBe(200);
         done();
     });
 });

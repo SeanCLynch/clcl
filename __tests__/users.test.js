@@ -5,6 +5,7 @@ const Redis = require('ioredis');
 let redis = new Redis();
 
 // TODO: Add delete user test. 
+// TODO: Add two users, visit other's dashboard.
 
 afterAll(() => {
     redis.disconnect();
@@ -67,9 +68,10 @@ describe("user basic full auth process", () => {
         redis.del('auth:sean@cl.com');
     });
 
-    test("GET /u (redirect)", async (done) => {
-        let response = await agent.get('/u');
-        expect(response.statusCode).toBe(302);
+    test("GET /u/sean (visitor)", async (done) => {
+        let response = await agent.get('/u/sean');
+        expect(response.statusCode).toBe(200);
+        expect(response.text).not.toMatch(/Your Account/);
         done();
     });
 
@@ -87,9 +89,10 @@ describe("user basic full auth process", () => {
         });
     });
 
-    test("GET /u (view)", async (done) => {
-        let response = await agent.get('/u');
+    test("GET /u/sean (dashboard)", async (done) => {
+        let response = await agent.get('/u/sean');
         expect(response.statusCode).toBe(200);
+        expect(response.text).toMatch(/Your Account/);
         done();
     });
 
@@ -99,9 +102,10 @@ describe("user basic full auth process", () => {
         done();
     });
 
-    test("GET /u (redirect)", async (done) => {
-        let response = await agent.get('/u');
-        expect(response.statusCode).toBe(302);
+    test("GET /u/sean (visitor)", async (done) => {
+        let response = await agent.get('/u/sean');
+        expect(response.statusCode).toBe(200);
+        expect(response.text).not.toMatch(/Your Account/);
         done();
     });
 
@@ -114,9 +118,10 @@ describe("user basic full auth process", () => {
         done();
     });
 
-    test("GET /u (view)", async (done) => {
-        let response = await agent.get('/u');
+    test("GET /u/sean (dashboard)", async (done) => {
+        let response = await agent.get('/u/sean');
         expect(response.statusCode).toBe(200);
+        expect(response.text).toMatch(/Your Account/);
         done();
     });
 });
