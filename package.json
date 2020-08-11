@@ -27,5 +27,5 @@
     "seed": "node tasks/seed.js"
   },
   "author": "seanclynch",
-  "license": "ISC"
+  "license": "AGPL-3.0-or-later"
 }

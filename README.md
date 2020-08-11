@@ -11,37 +11,10 @@ A good checklist, with the proper team culture, can dramatically reduce the dama
 Unlike a surgeon forgetting to wash his hands | a pilot panicking in a storm | a security guard wandering aimlessly | etc., Checklisting.Club provides a collaborative action plan for any situation. 
 
 
-## Examples / Who is this for?
-
-* Pilots managing uncommon situations.
-* Doctors performing routine procedures.
-* Chefs following cleaning standards.
-* Engineers building secure infrastructure.
-* Designers creating accessible interfaces.
-* Data scientists debugging models.
-* IT administrators setting up a new server.
-* Software developers learning version control.
-* Police officers, machinists, teachers, nurses, and more...
-
-
-## Background: 
-* The Checklist Manifesto - Atul Gawande
-* Github.com
-
-
-## Features:
-* Easily create checklists. Duh.
-* Automatically (and optionally!) scan your checklist for best practices (e.g. number of items, simple wording, do-confirm vs read-do, etc).
-* Beautifully format your checklist for printing using the power of Latex.
-* Update, change and revise checklists with the community, based on real-world experiences.
-* Or optionally create private checklists for secret things.
-* Subscribe to curated articles on embracing a culture of teamwork and professional discipline.
-
-
 ## Getting Started
 
 * Install NodeJS
-* Install Redis.
+* Install Redis
 
 
 ## Useful Commands/Scripts/Spells
@@ -49,15 +22,18 @@ Unlike a surgeon forgetting to wash his hands | a pilot panicking in a storm | a
 * `npm run tests`- run tests. 
 * `npm run seed` - seed db with sample lists. 
 * `npm start`    - start express server.
-* Visit `localhost:4001/` and enjoy!
+* Visit `localhost:4001/` and enjoy dev CLCL!
 
-* `redis-server` - start local redis server.
-* Can run `redis-commander` and visit `localhost:8081/` for GUI.
+* `redis-server`    - start local redis server.
+* `redis-commander` - start web-based redis UI.
+* Visit `localhost:8081/` and enjoy redis GUI!
 
 * `git push heroku master` - upload and build app to heroku.
-* Visit `https://checklisting-club.herokuapp.com/` and enjoy!
+* Visit `https://checklisting-club.herokuapp.com/` and enjoy prod CLCL!
+
 
 ## Contributors:
+
 * Seanclynch
 
 
@@ -101,40 +77,32 @@ __Examples of uses:__
 * https://securitycheckli.st/
 * https://24ways.org/2018/securing-your-site-like-its-1999/
 * https://www.nature.com/news/hospital-checklists-are-meant-to-save-lives-so-why-do-they-often-fail-1.18057 
-
-
-__Traction Channels:__
-* Viral Marketing using collaboration, embedded.
-* Search Engine Marketing/Optimization.
-* Content Marketing.
-* Community Building.
+* https://appreliability.co/
 
 
 __Competitors (?):__
 * https://process.st/
-* https://www.forgett.com/
+* https://www.forgett.com/ - gone?
 * https://cleverchecklist.com/
 * https://devchecklists.com/
-* https://ch.ckl.st/home
+* https://ch.ckl.st/home - gone?
+
 
 # Current Tasks: 
 
 MVP Requirements:
 
 For Lists:
-TODO: Add basic export mechanisms.
+TODO: Add basic export mechanisms. Store files locally?
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
 
 For DevOps:
-TODO: Update license.
-TODO: Audit basic security measures.
-TODO: Add backup/persistance to redis.
+TODO: Audit basic security measures. OWASP Top 10
+TODO: Add backup/persistance to redis. Manual backups and/or paid tier.
 TODO: Hook up URL to heroku.
 
-For Monitoring:
-TODO: Add roadmap. 
-
 For Marketing:
+TODO: Add roadmap & description to About page. 
 TODO: Landing page should be mobile-ready.
 TODO: Add legit checklist examples x10
 TODO: Share with various groups.
@@ -143,7 +111,24 @@ TODO: Share with various groups.
 
 FOR LATER:
 TODO: Show time remaining on tmp-forks.
-TODO: Improve randomization & iterating.
-TODO: Forgot password.
+TODO: Forgot password flow.
 TODO: Add 404/flashmsg page for not founds/does not exists.
-TODO: Add pricing page, payment page and free/paid account types.
+TODO: Editable list description.
+
+TODO: Create LLC.
+TODO: Add pricing page, payment page and free/paid account types. Stripe.
+
+TODO: Add matomo (or similar) analytics?
+TODO: Add SEO practices for lists?
+TODO: Improve randomization & iterating.
+
+TODO: FEATURE: "Runs" or "records" of going through checklist, audits.
+TODO: FEATURE: Private lists.
+TODO: FEATURE: Marketting blog. 
+TODO: FEATURE:  Automatically (and optionally!) scan your checklist for best practices (e.g. number of items, simple wording, do-confirm vs read-do, etc).
+TODO: FEATURE: Embedable checklists for other pages. 
+TODO: FEATURE: Zapier and other integrations?
+TODO: FEATURE: Alerts/heads up when checklists are due to run.
+TODO: FEATURE: templates
+TODO: FEATURE: comments
+TODO: FEATURE: section headers, comments in lists. 
