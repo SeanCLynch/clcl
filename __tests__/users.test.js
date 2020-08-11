@@ -29,6 +29,7 @@ describe("user signup process", () => {
             .send('userEmail=sean@cl.com')
             .send('userPassword=sean');
         expect(response.statusCode).toBe(302);
+        // console.log(response.text);
 
         redis.hlen('users:sean', (err, result) => {
             expect(result).toBeGreaterThan(0);
