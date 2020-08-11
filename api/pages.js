@@ -8,8 +8,12 @@ let redis = new Redis();
 router.get('/', async (req, res) => {
     let visited = await redis.hincrby('stats:basic', 'homepage_visit', 1);
 
+    let basic_stats = await redis.hmget('stats:basic', 'create_checklist', 'fork_checklist', 'create_user');
+    basic_stats = basic_stats.map((val) => { return !val ? 1 : val });
+
     res.render('home', {
-        "user": req.session.username
+        "user": req.session.username,
+        "stats": basic_stats
     });
 });
 
@@ -81,22 +85,34 @@ router.get('/cl/:username/:listname', async (req, res) => {
 });
 
 // User's Homepage/Dashboard.
-// TODO: Add iterator and further randomization.
 router.get('/u/:username', async (req, res) => {
     let visited = await redis.hincrby('stats:basic', 'dashboard_visit', 1);
 
     let is_users_dashboard = req.session.username == req.params.username;
-    
-    // Assemble list of checklists. 
+
     let match_string = `list:${req.params.username}:*`;
-    redis.scan('0', 'match', match_string, function (err, result) {
-        res.render('dashboard', {
-            "user": req.session.username,
-            "account": req.params.username,
-            "is_users_dashboard": is_users_dashboard,
-            "lists": result[1]
+    let all_lists = [];
+    let full_search = async function (iter) {
+        redis.scan(iter, 'match', match_string, function (err, result) {
+            if (result[0] == '0') {
+                // reached end, add and return. 
+                all_lists = all_lists.concat(result[1]);
+                res.render('dashboard', {
+                    "user": req.session.username,
+                    "account": req.params.username,
+                    "is_users_dashboard": is_users_dashboard,
+                    "lists": all_lists
+                });
+            } else {
+                // add results and iterate again
+                all_lists = all_lists.concat(result[1]);
+                full_search(result[0]);
+            }
         });
-    });
+    }
+
+    full_search('0');
+
 });
 
 module.exports = router;
