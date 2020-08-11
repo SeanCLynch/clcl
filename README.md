@@ -122,7 +122,7 @@ TODO: Add password encryption to user model.
 For Lists:
 TODO: Add forking mechanism.
 TODO: Add basic export mechanisms.
-TODO: Add username/listname blacklist. Disallow spaces.
+TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
 
 For DevOps:
 TODO: Determine efficient deployment process (heroku, pm2, etc).
@@ -131,7 +131,7 @@ TODO: Audit basic security measures.
 TODO: Add backup/persistance to redis.
 
 For Monitoring:
-TODO: Add usage statistics.
+TODO: Add usage statistics. Add "stats" hash, that is inc/dec on adds/deletes (faster than KEYS or SCAN).
 TODO: Add roadmap. 
 
 For Marketing:

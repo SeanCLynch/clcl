@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/signup', async (req, res) => {
 
     // Redirect if logged in.
-    if (req.session.username) return res.redirect('/u');
+    if (req.session.username) return res.redirect(`/u/${req.session.username}`);
 
     res.render('signup');
 });
@@ -24,19 +24,37 @@ router.get('/signup', async (req, res) => {
 router.get('/login', async (req, res) => {
 
     // Redirect if logged in.
-    if (req.session.username) return res.redirect('/u');
+    if (req.session.username) return res.redirect(`/u/${req.session.username}`);
     
     res.render('login');
 });
 
 // Fetches a random list from the current db.
-// TODO: Add iterator and further randomization.
 router.get('/random', async (req, res) => {
-    redis.scan('0', 'match', 'list:*:*', function (err, result) {
-        let ran_key = Math.floor(Math.random() * result[1].length);
-        let ran_list = result[1][ran_key].split(':');
-        res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
-    });
+
+    let coin_flip = function () {
+        return Math.floor(Math.random() * Math.floor(2));
+    };
+
+    let random_scan = async function (iter) {
+        redis.scan(iter, 'match', 'list:*:*', function (err, result) {
+            if (result[0] == '0') {
+                // reached end, pick a list
+                let ran_key = Math.floor(Math.random() * result[1].length);
+                let ran_list = result[1][ran_key].split(':');
+                res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
+            } else if (coin_flip() == 1) {
+                // pick a list
+                let ran_key = Math.floor(Math.random() * result[1].length);
+                let ran_list = result[1][ran_key].split(':');
+                res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
+            } else {
+                // iterate again
+                random_scan(result[0]);
+            }
+        });
+    }
+    random_scan('0');
 });
 
 // Display query-param specified list. 

@@ -42,9 +42,44 @@ router.post('/:username/:listname/save', async (req, res) => {
     res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
 });
 
-// TODO: Redirect to '/:username/:listname' once we have user-accounts.
+// Copy the given list to the existing user, or a time-limited temporary fork.
 router.post('/fork', async (req, res) => {
-    res.send('fork list');
+    
+    // Use username or tmp name for new list username.
+    let fork_name = req.session.username ? req.session.username : "tmp-forks";
+
+    // Find first non-existant new listname.
+    let tmp_list_name = req.body.listname;
+    let tmp_fork_counter = 0;
+    let tmp_list_key = `list:${fork_name}:${tmp_list_name}`;
+    let key_taken = await redis.exists(tmp_list_key);
+    while (key_taken) {
+        tmp_list_key = `list:${fork_name}:${req.body.listname + "-" + tmp_fork_counter}`;
+        tmp_list_name = `${req.body.listname + "-" + tmp_fork_counter}`;
+        tmp_fork_counter += 1;
+        key_taken = await redis.exists(tmp_list_key);
+    }
+
+    // Create new key, name and url. 
+    let list_key = tmp_list_key;
+    let list_name = tmp_list_name;
+    let new_url = `/cl/${fork_name}/${list_name}`;
+
+    // Fetch existing list items. 
+    let old_list_key = `list:${req.body.username}:${req.body.listname}`;
+    let old_items = await redis.lrange(old_list_key, 0, -1);
+
+    // Then push them onto new key. 
+    let new_list = await redis.rpush(list_key, old_items);
+
+    // Set EXPIRE if this is a user-less fork. 
+    if (!req.session.username) {
+        let timer_set = await redis.expire(list_key, (60*60*24*7));
+    }
+
+    // Redirect to new URL. 
+    res.redirect(new_url);
+
 });
 
 // Export the query-params specified list in the form specified format. 
