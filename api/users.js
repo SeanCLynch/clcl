@@ -4,6 +4,8 @@ let router = express.Router();
 const Redis = require('ioredis');
 let redis = new Redis();
 
+let bcrypt = require('bcryptjs');
+
 /*
     Users are stored in two parts.
 
@@ -24,16 +26,35 @@ router.post('/create', async (req, res) => {
     let user_email = req.body.userEmail;
     let user_password = req.body.userPassword;
 
+    // Check if username or email already exists. 
+    let name_key = `users:${user_name}`;
+    let name_key_check = await redis.exists(name_key);
+    if (name_key_check) {
+        res.render('signup', {
+            'flashMsg': 'Username already taken, sorry!'
+        });
+        return;
+    }
+
+    let auth_key = `auth:${user_email}`;
+    let auth_key_check = await redis.exists(auth_key);
+    if (auth_key_check) {
+        res.render('signup', {
+            'flashMsg': 'Email already in use, sorry!'
+        });
+        return;
+    }
+    
     // Set cookie. 
     req.session.username = user_name;
     req.session.useremail = user_email;
 
-    // TODO: Encrypt password & store it. 
-    // TODO: Check if username or password already exists. 
-    let name_key = `users:${user_name}`;
-    let auth_key = `auth:${user_email}`;
+    // Encrypt password.
+    let bcrypt_salt = await bcrypt.genSalt(10);
+    let bcrypt_hashed_pw = await bcrypt.hash(user_password, bcrypt_salt)
+    
     redis.hset(name_key, 'email', user_email, function (err, result) {
-        redis.hset(auth_key, 'password', user_password, 'namekey', name_key, function (err2, result2) {
+        redis.hset(auth_key, 'password', bcrypt_hashed_pw, 'namekey', name_key, function (err2, result2) {
             res.redirect(`/u/${user_name}`);
         });
     });
@@ -63,7 +84,7 @@ router.post('/delete', async (req, res) => {
     res.redirect('/');
 });
 
-// TODO: Unencrypt password.
+// Logs in user, setting cookie or providing feedback. 
 router.post('/login', async (req, res) => {
     let user_email = req.body.userEmail;
     let auth_key = `auth:${user_email}`;
@@ -78,26 +99,31 @@ router.post('/login', async (req, res) => {
             return;
         } 
 
-        if (result === user_password) { 
-
-            redis.hget(auth_key, 'namekey', function (err, result) {
-
-                // Set cookie.
-                let user_name = result.split(':')[1];
-                req.session.username = user_name;
-                req.session.useremail = user_email;
-                res.redirect(`/u/${user_name}`); 
+        // Decrypt password
+        bcrypt.compare(user_password, result, function (err, pw_check) {
+            if (err) {
+                res.render('login', {
+                    "flashMsg": "Login error!"
+                });
                 return;
-                
-            });
+            } else if (pw_check) {
+                redis.hget(auth_key, 'namekey', function (err, result) {
 
-        } else {
-            res.render('login', {
-                "flashMsg": "Bad password!"
-            });
-            return;
-        }
-        
+                    // Set cookie.
+                    let user_name = result.split(':')[1];
+                    req.session.username = user_name;
+                    req.session.useremail = user_email;
+                    res.redirect(`/u/${user_name}`); 
+                    return;
+                    
+                });
+            } else {
+                res.render('login', {
+                    "flashMsg": "Bad password!"
+                });
+                return;
+            }
+        });
     });
 });
 

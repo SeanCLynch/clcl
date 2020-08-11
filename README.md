@@ -116,11 +116,7 @@ __Competitors (?):__
 
 MVP Requirements:
 
-For Users:
-TODO: Add password encryption to user model. 
-
 For Lists:
-TODO: Add forking mechanism.
 TODO: Add basic export mechanisms.
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
 
@@ -139,3 +135,9 @@ TODO: Landing page should be mobile-ready.
 TODO: Add legit checklist examples x10
 TODO: Share with various groups.
 
+---
+
+FOR LATER:
+TODO: Show time remaining on tmp-forks.
+TODO: Improve randomization & iterating.
+TODO: Forgot password.
