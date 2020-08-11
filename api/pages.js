@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 
 const Redis = require('ioredis');
-let redis = new Redis();
+let redis = new Redis(process.env.REDIS_URL);
 
 // Display homepage.
 router.get('/', async (req, res) => {

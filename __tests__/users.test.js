@@ -2,7 +2,7 @@
 let request = require('supertest');
 let app = require('../index.js');
 const Redis = require('ioredis');
-let redis = new Redis();
+let redis = new Redis(process.env.REDIS_URL);
 
 // TODO: Add delete user test. 
 // TODO: Add two users, visit other's dashboard.

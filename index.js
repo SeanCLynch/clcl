@@ -36,7 +36,8 @@ app.use(bodyParser.urlencoded({
 // Database Config ---------------------------------------------------------------------------------
 
 const Redis = require('ioredis');
-let redis = new Redis();
+let redis = new Redis(process.env.REDIS_URL);
+
 
 // Crypto Config -----------------------------------------------------------------------------------
 

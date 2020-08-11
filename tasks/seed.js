@@ -1,5 +1,5 @@
 const Redis = require('ioredis');
-let redis = new Redis();
+let redis = new Redis(process.env.REDIS_URL);
 
 // Create new user: sean sean@sean.com password
 redis.del('auth:sean@sean.com');
