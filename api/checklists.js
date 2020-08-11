@@ -11,6 +11,8 @@ let redis = new Redis();
 
 // Create a brand new checklist. 
 router.post('/create', async (req, res) => {
+    let created = await redis.hincrby('stats:basic', 'create_checklist', 1);
+
     let username = req.body.username;
     let listname = req.body.listname;
     let listkey = `list:${username}:${listname}`;
@@ -24,8 +26,6 @@ router.post('/:username/:listname/add', async (req, res) => {
     redis.rpush(`list:${req.params.username}:${req.params.listname}`, "New List Item", function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
-
-    
 });
 
 // Edit an existing item on a query-params specified list. 
@@ -44,7 +44,8 @@ router.post('/:username/:listname/save', async (req, res) => {
 
 // Copy the given list to the existing user, or a time-limited temporary fork.
 router.post('/fork', async (req, res) => {
-    
+    let forked = await redis.hincrby('stats:basic', 'fork_checklist', 1);
+
     // Use username or tmp name for new list username.
     let fork_name = req.session.username ? req.session.username : "tmp-forks";
 
@@ -84,6 +85,8 @@ router.post('/fork', async (req, res) => {
 
 // Export the query-params specified list in the form specified format. 
 router.post('/:username/:listname/export', async (req, res) => {
+    let exported = await redis.hincrby('stats:basic', 'export_checklist', 1);
+
     let data_format = req.body.exportFormat;
     // TODO: Export the data in txt format.
     // TODO: Export the data in csv format.
@@ -93,6 +96,7 @@ router.post('/:username/:listname/export', async (req, res) => {
 
 // Delete the query-param specified list. 
 router.post('/:username/:listname/delete', async (req, res) => {
+    let deleted = await redis.hincrby('stats:basic', 'delete_checklist', 1);
     redis.del(`list:${req.params.username}:${req.params.listname}`, function (err, results) {
         res.redirect('/');
     });

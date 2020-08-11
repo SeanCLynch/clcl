@@ -6,6 +6,8 @@ let redis = new Redis();
 
 // Display homepage.
 router.get('/', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'homepage_visit', 1);
+
     res.render('home', {
         "user": req.session.username
     });
@@ -13,6 +15,7 @@ router.get('/', async (req, res) => {
 
 // Display the signup page for new users. 
 router.get('/signup', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'signup_visit', 1);
 
     // Redirect if logged in.
     if (req.session.username) return res.redirect(`/u/${req.session.username}`);
@@ -22,6 +25,7 @@ router.get('/signup', async (req, res) => {
 
 // Display login page. 
 router.get('/login', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'login_visit', 1);
 
     // Redirect if logged in.
     if (req.session.username) return res.redirect(`/u/${req.session.username}`);
@@ -31,6 +35,7 @@ router.get('/login', async (req, res) => {
 
 // Fetches a random list from the current db.
 router.get('/random', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'random_visit', 1);
 
     let coin_flip = function () {
         return Math.floor(Math.random() * Math.floor(2));
@@ -59,6 +64,8 @@ router.get('/random', async (req, res) => {
 
 // Display query-param specified list. 
 router.get('/cl/:username/:listname', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'list_visit', 1);
+
     redis.lrange(`list:${req.params.username}:${req.params.listname}`, 0, -1, function (err, result) {
         if (result.length == 0) {
             res.send("Sorry, no such list exists!");
@@ -76,6 +83,7 @@ router.get('/cl/:username/:listname', async (req, res) => {
 // User's Homepage/Dashboard.
 // TODO: Add iterator and further randomization.
 router.get('/u/:username', async (req, res) => {
+    let visited = await redis.hincrby('stats:basic', 'dashboard_visit', 1);
 
     let is_users_dashboard = req.session.username == req.params.username;
     

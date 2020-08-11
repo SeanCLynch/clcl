@@ -53,6 +53,7 @@ router.post('/create', async (req, res) => {
     let bcrypt_salt = await bcrypt.genSalt(10);
     let bcrypt_hashed_pw = await bcrypt.hash(user_password, bcrypt_salt)
     
+    let created = await redis.hincrby('stats:basic', 'create_user', 1);
     redis.hset(name_key, 'email', user_email, function (err, result) {
         redis.hset(auth_key, 'password', bcrypt_hashed_pw, 'namekey', name_key, function (err2, result2) {
             res.redirect(`/u/${user_name}`);
@@ -80,6 +81,8 @@ router.post('/delete', async (req, res) => {
     redis.del(name_key);
     redis.del(auth_key);
 
+    let deleted = await redis.hincrby('stats:basic', 'delete_user', 1);
+
     req.session = null;
     res.redirect('/');
 });
@@ -89,6 +92,8 @@ router.post('/login', async (req, res) => {
     let user_email = req.body.userEmail;
     let auth_key = `auth:${user_email}`;
     let user_password = req.body.userPassword;
+
+    let logged_in = await redis.hincrby('stats:basic', 'login_user', 1);
 
     redis.hget(auth_key, 'password', function (err, result) {
 
@@ -108,14 +113,12 @@ router.post('/login', async (req, res) => {
                 return;
             } else if (pw_check) {
                 redis.hget(auth_key, 'namekey', function (err, result) {
-
                     // Set cookie.
                     let user_name = result.split(':')[1];
                     req.session.username = user_name;
                     req.session.useremail = user_email;
                     res.redirect(`/u/${user_name}`); 
                     return;
-                    
                 });
             } else {
                 res.render('login', {

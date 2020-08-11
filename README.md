@@ -127,7 +127,6 @@ TODO: Audit basic security measures.
 TODO: Add backup/persistance to redis.
 
 For Monitoring:
-TODO: Add usage statistics. Add "stats" hash, that is inc/dec on adds/deletes (faster than KEYS or SCAN).
 TODO: Add roadmap. 
 
 For Marketing:
@@ -141,3 +140,4 @@ FOR LATER:
 TODO: Show time remaining on tmp-forks.
 TODO: Improve randomization & iterating.
 TODO: Forgot password.
+TODO: Add 404/flashmsg page for not founds/does not exists.
