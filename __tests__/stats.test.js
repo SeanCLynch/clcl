@@ -22,7 +22,7 @@ describe("basic stats route", () => {
         let response = await request(app).get('/api/stats/basic');
         expect(response.statusCode).toBe(200);
         expect(response.type).toBe("application/json");
-        expect(response.body.dashboard_visit).toBeGreaterThan(0);
+        expect(Number(response.body.dashboard_visit)).toBeGreaterThan(0);
         done();
     });
 });

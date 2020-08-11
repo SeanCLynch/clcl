@@ -23,7 +23,7 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "node tasks/seed.js",
-    "test": "NODE_ENV=test jest tests --verbose --forceExit",
+    "tests": "NODE_ENV=test jest tests --verbose --forceExit",
     "seed": "node tasks/seed.js"
   },
   "author": "seanclynch",

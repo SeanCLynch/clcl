@@ -46,11 +46,16 @@ Unlike a surgeon forgetting to wash his hands | a pilot panicking in a storm | a
 
 ## Useful Commands/Scripts/Spells
 
-* `redis-server` - start redis server.
+* `npm run tests`- run tests. 
 * `npm run seed` - seed db with sample lists. 
 * `npm start`    - start express server.
 * Visit `localhost:4001/` and enjoy!
+
+* `redis-server` - start local redis server.
 * Can run `redis-commander` and visit `localhost:8081/` for GUI.
+
+* `git push heroku master` - upload and build app to heroku.
+* Visit `https://checklisting-club.herokuapp.com/` and enjoy!
 
 ## Contributors:
 * Seanclynch
@@ -121,10 +126,10 @@ TODO: Add basic export mechanisms.
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
 
 For DevOps:
-TODO: Determine efficient deployment process (heroku, pm2, etc).
 TODO: Update license.
 TODO: Audit basic security measures.
 TODO: Add backup/persistance to redis.
+TODO: Hook up URL to heroku.
 
 For Monitoring:
 TODO: Add roadmap. 
@@ -141,3 +146,4 @@ TODO: Show time remaining on tmp-forks.
 TODO: Improve randomization & iterating.
 TODO: Forgot password.
 TODO: Add 404/flashmsg page for not founds/does not exists.
+TODO: Add pricing page, payment page and free/paid account types.
