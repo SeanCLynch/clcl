@@ -93,6 +93,7 @@ __Competitors (?):__
 MVP Requirements:
 
 For Lists:
+TODO: Only edit/add on your own lists?
 TODO: Add basic export mechanisms. Store files locally?
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
 

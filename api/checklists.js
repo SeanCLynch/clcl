@@ -4,6 +4,10 @@ let router = express.Router();
 const Redis = require('ioredis');
 let redis = new Redis(process.env.REDIS_URL);
 
+let fs = require('fs');
+let path = require('path');
+const { Stream } = require('stream');
+
 /*
     The List Key
     "list:<username>:<listname>" is a list used for storing list items.     
@@ -37,7 +41,7 @@ router.post('/:username/:listname/edit', async (req, res) => {
     });
 });
 
-// Save the query-params specified list, sort of unnecessary tbh.
+// Save the query-params specified list, sort of unnecessary since list is saved after any changes.
 router.post('/:username/:listname/save', async (req, res) => {
     res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
 });
@@ -84,14 +88,58 @@ router.post('/fork', async (req, res) => {
 });
 
 // Export the query-params specified list in the form specified format. 
-router.post('/:username/:listname/export', async (req, res) => {
+router.get('/:username/:listname/export', async (req, res) => {
     let exported = await redis.hincrby('stats:basic', 'export_checklist', 1);
 
-    let data_format = req.body.exportFormat;
-    // TODO: Export the data in txt format.
-    // TODO: Export the data in csv format.
-    // TODO: Export the data in pdf format.
-    res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+    // Fetch target list items. 
+    let target_list_key = `list:${req.params.username}:${req.params.listname}`;
+    let target_list_items = await redis.lrange(target_list_key, 0, -1);
+
+    // Create new file name for exported data.
+    let data_format = req.query.exportFormat;
+    let file_name = `./public/${data_format}/${req.params.username}-${req.params.listname}.${data_format}`;
+    let file_location = path.join(__dirname, '../', file_name);
+
+    switch (data_format) {
+        case "txt":
+            fs.access(file_name, fs.constants.F_OK, (err) => {
+
+                // Check if file already exists & delete it.
+                if (!err) {
+                    fs.unlink(file_name, (err) => {
+                        if (err) console.error(err);
+                    });
+                }
+
+                // Write list as stream to preserve ordering.
+                let txtStream = fs.createWriteStream(file_name, {flags: 'a'});
+                target_list_items.forEach((val, idx) => {
+                    txtStream.write(`${val}\n`);
+                });
+                txtStream.end();
+                
+            });
+            res.redirect(`/${data_format}/${req.params.username}-${req.params.listname}.${data_format}`);
+            // res.download(file_location, file_name, (err) => {
+            //     if (err) console.error(err);
+            // });
+            break;
+    
+        case "csv":
+            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+
+            break;
+
+        case "pdf":
+            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+
+            break;
+
+        default:
+            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+            break;
+    }
+
 });
 
 // Delete the query-param specified list. 

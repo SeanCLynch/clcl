@@ -39,10 +39,6 @@ const Redis = require('ioredis');
 let redis = new Redis(process.env.REDIS_URL);
 
 
-// Crypto Config -----------------------------------------------------------------------------------
-
-let bcrypt = require('bcryptjs');
-
 // Session Config ----------------------------------------------------------------------------------
 
 let cookieSession = require('cookie-session');

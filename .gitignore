@@ -2,3 +2,6 @@
 node_modules/
 clcl-workspace.code-workspace
 dump.rdb
+public/txt/*
+public/csv/*
+public/pdf/*
