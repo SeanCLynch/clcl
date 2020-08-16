@@ -94,8 +94,9 @@ MVP Requirements:
 
 For Lists:
 TODO: Only edit/add on your own lists?
+TODO: Delete item from list.
 TODO: Add basic export mechanisms. Store files locally?
-TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks username. Disallow Redis Cmds.
+TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks, forks, download username. Disallow Redis Cmds.
 
 For DevOps:
 TODO: Audit basic security measures. OWASP Top 10

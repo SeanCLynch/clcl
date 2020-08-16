@@ -100,37 +100,43 @@ router.get('/:username/:listname/export', async (req, res) => {
     let file_name = `./public/${data_format}/${req.params.username}-${req.params.listname}.${data_format}`;
     let file_location = path.join(__dirname, '../', file_name);
 
+    // Delete the file if it exists. Should probably save versioned history. 
+    fs.unlink(file_name, (err) => {
+        if (err) console.error(err);
+    });
+
     switch (data_format) {
         case "txt":
-            fs.access(file_name, fs.constants.F_OK, (err) => {
 
-                // Check if file already exists & delete it.
-                if (!err) {
-                    fs.unlink(file_name, (err) => {
-                        if (err) console.error(err);
-                    });
-                }
-
-                // Write list as stream to preserve ordering.
-                let txtStream = fs.createWriteStream(file_name, {flags: 'a'});
-                target_list_items.forEach((val, idx) => {
-                    txtStream.write(`${val}\n`);
-                });
-                txtStream.end();
-                
+            // Write list as stream to preserve ordering.
+            let txtStream = fs.createWriteStream(file_name, {flags: 'a'});
+            target_list_items.forEach((val, idx) => {
+                txtStream.write(`${val}\n`);
             });
-            res.redirect(`/${data_format}/${req.params.username}-${req.params.listname}.${data_format}`);
-            // res.download(file_location, file_name, (err) => {
-            //     if (err) console.error(err);
-            // });
+            txtStream.end();
+                
+            // Redirect to download route. 
+            res.redirect(`/api/list/download?fileName=${encodeURI(file_name)}`);
             break;
     
         case "csv":
-            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
 
+            // Write list as stream to preserve ordering.
+            let csvStream = fs.createWriteStream(file_name, {flags: 'a'});
+            target_list_items.forEach((val, idx) => {
+                csvStream.write(`${val}\n`);
+            });
+            csvStream.end();
+
+            // Redirect to download route. 
+            res.redirect(`/api/list/download?fileName=${encodeURI(file_name)}`);
             break;
 
         case "pdf":
+
+            // Best bet is to create a .tex document (https://tex.stackexchange.com/questions/58752/how-do-i-generate-a-check-list).
+            // Then to convert that to a pdf (somehow).
+            // Then redirect to /download
             res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
 
             break;
@@ -141,6 +147,13 @@ router.get('/:username/:listname/export', async (req, res) => {
     }
 
 });
+
+router.get('/download', async (req, res) => {
+    let file_name = req.query.fileName;
+    res.download(file_name, "test123", (err) => {
+        if (err) console.error(err);
+    });
+})
 
 // Delete the query-param specified list. 
 router.post('/:username/:listname/delete', async (req, res) => {
