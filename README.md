@@ -94,7 +94,6 @@ MVP Requirements:
 
 For Lists:
 TODO: Only edit/add on your own lists?
-TODO: Delete item from list.
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks, forks, download username. Disallow Redis Cmds.
 
 For DevOps:
@@ -107,6 +106,7 @@ TODO: Add roadmap & description to About page.
 TODO: Landing page should be mobile-ready.
 TODO: Add legit checklist examples x10
 TODO: Share with various groups.
+TODO: Add support, terms, privacy, social, about links to footer.
 
 ---
 
@@ -126,7 +126,7 @@ TODO: Improve randomization & iterating.
 TODO: FEATURE: "Runs" or "records" of going through checklist, audits.
 TODO: FEATURE: Private lists.
 TODO: FEATURE: Marketting blog. 
-TODO: FEATURE:  Automatically (and optionally!) scan your checklist for best practices (e.g. number of items, simple wording, do-confirm vs read-do, etc).
+TODO: FEATURE: Automatically (and optionally!) scan your checklist for best practices (e.g. number of items, simple wording, do-confirm vs read-do, etc).
 TODO: FEATURE: Embedable checklists for other pages. 
 TODO: FEATURE: Zapier and other integrations?
 TODO: FEATURE: Alerts/heads up when checklists are due to run.

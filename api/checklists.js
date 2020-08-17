@@ -111,9 +111,14 @@ router.get('/:username/:listname/export', async (req, res) => {
     let file_location = path.join(__dirname, '../', file_name);
 
     // Delete the file if it exists. Should probably save versioned history. 
-    fs.unlink(file_name, (err) => {
-        if (err) console.error(err);
-    });
+    try {
+        fs.unlink(file_name, (err) => {
+            if (err) console.error(err);
+        });
+    } catch (error) {
+        console.log('No previous file to delete for export.');
+    }
+    
 
     switch (data_format) {
         case "txt":
