@@ -43,6 +43,14 @@ router.post('/:username/:listname/edit', async (req, res) => {
     });
 });
 
+// Remove an existing item from a list.
+router.post('/:username/:listname/delete', async (req, res) => {
+    let item_text = req.body.deleteItem;
+    redis.lrem(`list:${req.params.username}:${req.params.listname}`, 1, item_text, function (err, result) {
+        res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
+    });
+});
+
 // Save the query-params specified list, sort of unnecessary since list is saved after any changes.
 router.post('/:username/:listname/save', async (req, res) => {
     res.redirect(`/cl/${req.params.username}/${req.params.listname}`);

@@ -1,5 +1,41 @@
 <h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
 
+<div class="list-controls">
+    
+    <div class="controls list-ctrls">
+        <form action="/api/list/fork" method="post">
+            <input name="listname" type="hidden" value="{{ listname }}" />
+            <input name="username" type="hidden" value="{{ username }}" />
+            <button name="fork-list">Fork List</button>
+        </form>
+    </div>
+
+    <div class="controls list-ctrls">
+        <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
+            <select name="exportFormat">
+                <option value="">Please select a data format</option>
+                <option value="txt">txt</option>
+                <option value="csv">csv</option>
+                <option value="pdf">pdf</option>
+            </select>
+
+            <button name="export-data" value="edit">Export Data</button>
+        </form>
+    </div>
+
+    <div class="controls list-ctrls">
+        <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
+            <button name="save-list">Save List</button>
+        </form>
+    </div>
+
+    <div class="controls list-ctrls">
+        <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
+            <button class="use-caution" name="delete" value="delete">Delete List</button>
+        </form>
+    </div>
+</div>
+
 <div id="list">
 {{#each list}}
     <div class="list-item">
@@ -9,13 +45,14 @@
 {{/each}}
 </div>
 
-<div class="controls">
+
+<div class="controls item-ctrls">
     <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
         <button name="additem" value="add">Add Item</button>
     </form>
 </div>
 
-<div class="controls">
+<div class="controls item-ctrls">
     <form action="/api/list/{{ username }}/{{ listname }}/edit" method="post">
         <select name="editItem">
             <option value="">Please select an item to edit</option>
@@ -30,38 +67,16 @@
     </form>
 </div>
 
-<div class="controls">
-    <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
-        <button name="save-list">Save</button>
-    </form>
-</div>
-
-<div class="controls">
-    
-    <form action="/api/list/fork" method="post">
-        <input name="listname" type="hidden" value="{{ listname }}" />
-        <input name="username" type="hidden" value="{{ username }}" />
-        <button name="fork-list">Fork</button>
-    </form>
-</div>
-
-<div class="controls">
-    <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
-        <select name="exportFormat">
-            <option value="">Please select a data format</option>
-            <option value="txt">txt</option>
-            <option value="csv">csv</option>
-            <option value="pdf">pdf</option>
+<div class="controls item-ctrls">
+    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
+        <select name="deleteItem">
+            <option value="">Please select an item to delete</option>
+            {{#each list}}
+                <option value="{{ this }}">{{ this }}</option>
+            {{/each}}
         </select>
 
-        <button name="export-data" value="edit">Export Data</button>
+        <button name="delete-item" value="delete">Delete Item</button>
     </form>
 </div>
-
-<div class="controls">
-    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
-        <button class="use-caution" name="delete" value="delete">Delete</button>
-    </form>
-</div>
-
 

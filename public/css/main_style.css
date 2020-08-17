@@ -202,8 +202,14 @@ nav #mainmenu div {
     top: -5px;
 }
 
+.list-controls {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .controls {
     margin-bottom: 0.5rem;
+    border-radius: 3px;
 }
 
 #flash-msg {

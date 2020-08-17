@@ -48,10 +48,15 @@ router.get('/random', async (req, res) => {
     let random_scan = async function (iter) {
         redis.scan(iter, 'match', 'list:*:*', function (err, result) {
             if (result[0] == '0') {
-                // reached end, pick a list
-                let ran_key = Math.floor(Math.random() * result[1].length);
-                let ran_list = result[1][ran_key].split(':');
-                res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
+                if (result[1].length == 0) {
+                    // reached end, but no items left.
+                    res.redirect('/random');
+                } else {
+                    // reached end, pick a list.
+                    let ran_key = Math.floor(Math.random() * result[1].length);
+                    let ran_list = result[1][ran_key].split(':');
+                    res.redirect(`/cl/${ran_list[1]}/${ran_list[2]}/`);
+                }
             } else if (coin_flip() == 1) {
                 // pick a list
                 let ran_key = Math.floor(Math.random() * result[1].length);
