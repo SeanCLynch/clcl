@@ -4,9 +4,11 @@ let router = express.Router();
 const Redis = require('ioredis');
 let redis = new Redis(process.env.REDIS_URL);
 
+// Used in the creation of txt, csv, pdf exports. 
 let fs = require('fs');
 let path = require('path');
 const { Stream } = require('stream');
+const PDFDocument = require('pdfkit');
 
 /*
     The List Key
@@ -134,15 +136,30 @@ router.get('/:username/:listname/export', async (req, res) => {
 
         case "pdf":
 
-            // Best bet is to create a .tex document (https://tex.stackexchange.com/questions/58752/how-do-i-generate-a-check-list).
-            // Then to convert that to a pdf (somehow).
-            // Then redirect to /download
-            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+            // Create a document.
+            var doc = new PDFDocument();
 
+            // Add the title. 
+            doc.fontSize(25).text(req.params.listname, 100, 80);
+
+            // Add the items. 
+            let start_y = 120;
+            target_list_items.forEach((val) => {
+                doc.rect(100, start_y, 10, 10).stroke();
+                doc.text(val, 120, start_y - 5);
+                start_y = start_y + 30;
+            });
+
+            // Write it to the file. 
+            doc.pipe(fs.createWriteStream(file_name));
+            doc.end();
+
+            // Redirect to download route. 
+            res.redirect(`/api/list/download?fileName=${encodeURI(file_name)}`);
             break;
 
         default:
-            res.send(`This is your data in <strong>.${data_format}</strong> format :D`);
+            res.send(`Please select one of the available data types.`);
             break;
     }
 
