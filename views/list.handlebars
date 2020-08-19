@@ -23,6 +23,7 @@
         </form>
     </div>
 
+    {{#if (userOwnsList user username) }}
     <div class="controls list-ctrls">
         <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
             <button name="save-list">Save List</button>
@@ -34,6 +35,7 @@
             <button class="use-caution" name="delete" value="delete">Delete List</button>
         </form>
     </div>
+    {{/if}}
 </div>
 
 <div id="list">
@@ -45,7 +47,7 @@
 {{/each}}
 </div>
 
-
+{{#if (userOwnsList user username) }}
 <div class="controls item-ctrls">
     <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
         <button name="additem" value="add">Add Item</button>
@@ -79,4 +81,12 @@
         <button name="delete-item" value="delete">Delete Item</button>
     </form>
 </div>
+{{/if}}
 
+{{#unless (userOwnsList user username) }}
+<section id="flash-msg">
+    <div>
+        Please fork this list or create an account in order to add/edit/delete checklist items.
+    </div>
+</section>
+{{/unless}}

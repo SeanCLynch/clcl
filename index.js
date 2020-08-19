@@ -16,7 +16,8 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   helpers: {
     listLink: function (str) { return `/cl/${str.substring(5).replace(':', '/')}`; },
-    listTitle: function (str) { return str.split(':')[2]; }
+    listTitle: function (str) { return str.split(':')[2]; },
+    userOwnsList: function (user, list_username) { if (list_username == 'tmp-forks') {return true;} else {return user == list_username;} }
   }
 }));
 app.set('view engine', 'handlebars');

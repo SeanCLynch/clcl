@@ -93,13 +93,11 @@ __Competitors (?):__
 MVP Requirements:
 
 For Lists:
-TODO: Only edit/add on your own lists?
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks, forks, download username. Disallow Redis Cmds.
 
 For DevOps:
 TODO: Audit basic security measures. OWASP Top 10
 TODO: Add backup/persistance to redis. Manual backups and/or paid tier.
-TODO: Hook up URL to heroku.
 
 For Marketing:
 TODO: Add roadmap & description to About page. 
@@ -114,7 +112,7 @@ FOR LATER:
 TODO: Show time remaining on tmp-forks.
 TODO: Forgot password flow.
 TODO: Add 404/flashmsg page for not founds/does not exists.
-TODO: Editable list description.
+TODO: Editable list description & title.
 
 TODO: Create LLC.
 TODO: Add pricing page, payment page and free/paid account types. Stripe.
