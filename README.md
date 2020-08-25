@@ -94,7 +94,6 @@ MVP Requirements:
 
 For Lists:
 TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks, forks, download username. Disallow Redis Cmds.
-TODO: Editable list description & title.
 
 For DevOps:
 TODO: Audit basic security measures. OWASP Top 10
@@ -107,13 +106,16 @@ TODO: Add legit checklist examples x10
 TODO: Share with various groups.
 TODO: Add support, terms, privacy, social, about links to footer.
 TODO: Add favicon.
+TODO: Add bug report page.
 ---
 
 FOR LATER:
+TODO: Address all error handling.
 TODO: Show time remaining on tmp-forks.
 TODO: Forgot password flow.
 TODO: Add 404/flashmsg page for not founds/does not exists.
 TODO: Add tags and tag search interface.
+TODO: Middleware to form list-key, list-info-key, auth-key, etc. All major objects. 
 
 
 TODO: Create LLC.

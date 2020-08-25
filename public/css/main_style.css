@@ -202,6 +202,11 @@ nav #mainmenu div {
     top: -5px;
 }
 
+.list-description {
+    margin-bottom: 2rem;
+    font-size: 14px;
+}
+
 .list-controls {
     display: flex;
     justify-content: space-between;

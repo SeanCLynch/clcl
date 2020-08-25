@@ -46,6 +46,10 @@ router.post('/:username/:listname/edit', async (req, res) => {
 // Remove an existing item from a list.
 router.post('/:username/:listname/delete', async (req, res) => {
     let item_text = req.body.deleteItem;
+
+    // Also delete list-info. 
+    let deleted_info = await redis.hdel(`list-info:${req.params.username}:${req.params.listname}`);
+
     redis.lrem(`list:${req.params.username}:${req.params.listname}`, 1, item_text, function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
@@ -61,8 +65,21 @@ router.post('/:username/:listname/rename', async (req, res) => {
 
     // TODO: First check username/listname combo is available. 
 
+    let renamed_info = await redis.rename(`list-info:${req.params.username}:${req.params.listname}`, `list-info:${req.params.username}:${req.body.listname}`);
+
     redis.rename(`list:${req.params.username}:${req.params.listname}`, `list:${req.params.username}:${req.body.listname}`, function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.body.listname}`);
+    });
+});
+
+// Edit the checklist's description.
+router.post('/:username/:listname/description', async (req, res) => {
+
+    let new_desc = req.body.listdesc;
+    let list_info_key = `list-info:${req.params.username}:${req.params.listname}`;
+
+    redis.hset(list_info_key, 'description', new_desc, function (err, result) {
+        res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
 });
 
@@ -101,6 +118,9 @@ router.post('/fork', async (req, res) => {
     if (!req.session.username) {
         let timer_set = await redis.expire(list_key, (60*60*24*7));
     }
+
+    // Copy list-info over with list. 
+    let renamed_info = await redis.rename(`list-info:${req.body.username}:${req.body.listname}`, `list-info:${fork_name}:${list_name}`);
 
     // Redirect to new URL. 
     res.redirect(new_url);

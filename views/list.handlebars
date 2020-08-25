@@ -1,5 +1,9 @@
 <h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
 
+<div class="list-description">
+    {{ listInfo.description }}
+</div>
+
 <div class="list-controls">
     
     <div class="controls list-ctrls">
@@ -33,7 +37,14 @@
     <div class="controls list-ctrls">
         <form action="/api/list/{{ username }}/{{ listname }}/rename" method="post">
             <input name="listname" value="{{ listname }}" />
-            <button name="save-list">Rename List</button>
+            <button name="rename-list">Rename List</button>
+        </form>
+    </div>
+
+    <div class="controls list-ctrls">
+        <form action="/api/list/{{ username }}/{{ listname }}/description" method="post">
+            <input name="listdesc" value="{{ listInfo.description }}" />
+            <button name="edit-list-desc">Edit List Description</button>
         </form>
     </div>
 

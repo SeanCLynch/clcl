@@ -79,11 +79,14 @@ router.get('/cl/:username/:listname', async (req, res) => {
         if (result.length == 0) {
             res.send("Sorry, no such list exists!");
         } else {
-            res.render('list', {
-                "user": req.session.username,
-                "list": result,
-                "username": req.params.username,
-                "listname": req.params.listname
+            redis.hgetall(`list-info:${req.params.username}:${req.params.listname}`, function (err2, result2) {
+                res.render('list', {
+                    "user": req.session.username,
+                    "list": result,
+                    "listInfo": result2,
+                    "username": req.params.username,
+                    "listname": req.params.listname
+                });
             });
         }
     });
