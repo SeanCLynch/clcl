@@ -56,6 +56,16 @@ router.post('/:username/:listname/save', async (req, res) => {
     res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
 });
 
+// Rename the list to a new name. 
+router.post('/:username/:listname/rename', async (req, res) => {
+
+    // TODO: First check username/listname combo is available. 
+
+    redis.rename(`list:${req.params.username}:${req.params.listname}`, `list:${req.params.username}:${req.body.listname}`, function (err, result) {
+        res.redirect(`/cl/${req.params.username}/${req.body.listname}`);
+    });
+});
+
 // Copy the given list to the existing user, or a time-limited temporary fork.
 router.post('/fork', async (req, res) => {
     let forked = await redis.hincrby('stats:basic', 'fork_checklist', 1);

@@ -31,6 +31,13 @@
     </div>
 
     <div class="controls list-ctrls">
+        <form action="/api/list/{{ username }}/{{ listname }}/rename" method="post">
+            <input name="listname" value="{{ listname }}" />
+            <button name="save-list">Rename List</button>
+        </form>
+    </div>
+
+    <div class="controls list-ctrls">
         <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
             <button class="use-caution" name="delete" value="delete">Delete List</button>
         </form>
