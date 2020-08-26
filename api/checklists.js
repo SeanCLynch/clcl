@@ -96,7 +96,11 @@ router.post('/:username/:listname/rename', async (req, res) => {
         return;
     }
 
-    let renamed_info = await redis.rename(`list-info:${req.params.username}:${req.params.listname}`, `list-info:${req.params.username}:${req.body.listname}`);
+    try {
+        let renamed_info = await redis.rename(`list-info:${req.params.username}:${req.params.listname}`, `list-info:${req.params.username}:${req.body.listname}`);
+    } catch (err) {
+        console.log("Renamed list had no associated list-info.");
+    }
 
     redis.rename(`list:${req.params.username}:${req.params.listname}`, `list:${req.params.username}:${req.body.listname}`, function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.body.listname}`);
@@ -152,7 +156,12 @@ router.post('/fork', async (req, res) => {
     }
 
     // Copy list-info over with list. 
-    let renamed_info = await redis.rename(`list-info:${req.body.username}:${req.body.listname}`, `list-info:${fork_name}:${list_name}`);
+    try {
+        let renamed_info = await redis.rename(`list-info:${req.body.username}:${req.body.listname}`, `list-info:${fork_name}:${list_name}`);
+    } catch (err) {
+        console.log("Forked list had no associated list-info.");
+    }
+    
 
     // Redirect to new URL. 
     res.redirect(new_url);
