@@ -10,7 +10,7 @@ let path = require('path');
 const { Stream } = require('stream');
 const PDFDocument = require('pdfkit');
 
-import { validateUsername, validateListname } from "../lib/keyValidation.js";
+let validationUtil = require('../lib/keyValidation.js');
 
 /*
     The List Key
@@ -25,7 +25,7 @@ router.post('/create', async (req, res) => {
     let listname = req.body.listname;
 
     // Validate username (should already be valid technically).
-    let user_validation = await validateUsername(username);
+    let user_validation = await validationUtil.validateUsername(username);
     if (!user_validation.valid) {
         res.send(user_validation.error);
         // res.render('signup', {
@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
     }
 
     // Validate listname.
-    let list_validation = await validateListname(username, listname);
+    let list_validation = await validationUtil.validateListname(username, listname);
     if (!list_validation.valid) {
         res.send(list_validation.error);
         // res.render('signup', {
@@ -87,7 +87,7 @@ router.post('/:username/:listname/save', async (req, res) => {
 router.post('/:username/:listname/rename', async (req, res) => {
 
     // Validate listname.
-    let list_validation = await validateListname(req.params.username, req.body.listname);
+    let list_validation = await validationUtil.validateListname(req.params.username, req.body.listname);
     if (!list_validation.valid) {
         res.send(list_validation.error);
         // res.render('signup', {

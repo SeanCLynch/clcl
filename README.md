@@ -93,8 +93,8 @@ __Competitors (?):__
 MVP Requirements:
 
 For DevOps:
-TODO: Audit basic security measures. OWASP Top 10
 TODO: Add backup/persistance to redis. Manual backups and/or paid tier.
+TODO: Audit basic security measures. OWASP Top 10
 TODO: Test list title & desc edit.
 TODO: Test key validation.
 

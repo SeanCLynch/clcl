@@ -6,8 +6,7 @@ let redis = new Redis(process.env.REDIS_URL);
 
 let bcrypt = require('bcryptjs');
 
-import { validateUsername } from "../lib/keyValidation.js";
-
+let validationUtil = require('../lib/keyValidation.js');
 
 /*
     Users are stored in two parts.
@@ -30,7 +29,7 @@ router.post('/create', async (req, res) => {
     let user_password = req.body.userPassword;
 
     // Validate username.
-    let user_validation = await validateUsername(user_name);
+    let user_validation = await validationUtil.validateUsername(user_name);
     if (!user_validation.valid) {
         res.render('signup', {
             'flashMsg': user_validation.error
