@@ -92,12 +92,11 @@ __Competitors (?):__
 
 MVP Requirements:
 
-For Lists:
-TODO: Add username/listname blacklist. Disallow spaces. Disallow tmp-forks, forks, download username. Disallow Redis Cmds.
-
 For DevOps:
 TODO: Audit basic security measures. OWASP Top 10
 TODO: Add backup/persistance to redis. Manual backups and/or paid tier.
+TODO: Test list title & desc edit.
+TODO: Test key validation.
 
 For Marketing:
 TODO: Add roadmap & description to About page. 
@@ -116,7 +115,6 @@ TODO: Forgot password flow.
 TODO: Add 404/flashmsg page for not founds/does not exists.
 TODO: Add tags and tag search interface.
 TODO: Middleware to form list-key, list-info-key, auth-key, etc. All major objects. 
-
 
 TODO: Create LLC.
 TODO: Add pricing page, payment page and free/paid account types. Stripe.

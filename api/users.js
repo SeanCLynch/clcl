@@ -6,6 +6,9 @@ let redis = new Redis(process.env.REDIS_URL);
 
 let bcrypt = require('bcryptjs');
 
+import { validateUsername } from "../lib/keyValidation.js";
+
+
 /*
     Users are stored in two parts.
 
@@ -26,16 +29,16 @@ router.post('/create', async (req, res) => {
     let user_email = req.body.userEmail;
     let user_password = req.body.userPassword;
 
-    // Check if username or email already exists. 
-    let name_key = `users:${user_name}`;
-    let name_key_check = await redis.exists(name_key);
-    if (name_key_check) {
+    // Validate username.
+    let user_validation = await validateUsername(user_name);
+    if (!user_validation.valid) {
         res.render('signup', {
-            'flashMsg': 'Username already taken, sorry!'
+            'flashMsg': user_validation.error
         });
         return;
     }
 
+    // Validate user's email.
     let auth_key = `auth:${user_email}`;
     let auth_key_check = await redis.exists(auth_key);
     if (auth_key_check) {

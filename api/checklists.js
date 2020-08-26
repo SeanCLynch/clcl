@@ -10,6 +10,8 @@ let path = require('path');
 const { Stream } = require('stream');
 const PDFDocument = require('pdfkit');
 
+import { validateUsername, validateListname } from "../lib/keyValidation.js";
+
 /*
     The List Key
     "list:<username>:<listname>" is a list used for storing list items.     
@@ -21,6 +23,27 @@ router.post('/create', async (req, res) => {
 
     let username = req.body.username;
     let listname = req.body.listname;
+
+    // Validate username (should already be valid technically).
+    let user_validation = await validateUsername(username);
+    if (!user_validation.valid) {
+        res.send(user_validation.error);
+        // res.render('signup', {
+        //     'flashMsg': user_validation.error
+        // });
+        return;
+    }
+
+    // Validate listname.
+    let list_validation = await validateListname(username, listname);
+    if (!list_validation.valid) {
+        res.send(list_validation.error);
+        // res.render('signup', {
+        //     'flashMsg': list_validation.error
+        // });
+        return;
+    }
+
     let listkey = `list:${username}:${listname}`;
     redis.lpush(listkey, "First Item", function (err, result) {
         res.redirect(`/cl/${username}/${listname}`);
@@ -63,7 +86,15 @@ router.post('/:username/:listname/save', async (req, res) => {
 // Rename the list to a new name. 
 router.post('/:username/:listname/rename', async (req, res) => {
 
-    // TODO: First check username/listname combo is available. 
+    // Validate listname.
+    let list_validation = await validateListname(req.params.username, req.body.listname);
+    if (!list_validation.valid) {
+        res.send(list_validation.error);
+        // res.render('signup', {
+        //     'flashMsg': list_validation.error
+        // });
+        return;
+    }
 
     let renamed_info = await redis.rename(`list-info:${req.params.username}:${req.params.listname}`, `list-info:${req.params.username}:${req.body.listname}`);
 
@@ -91,6 +122,7 @@ router.post('/fork', async (req, res) => {
     let fork_name = req.session.username ? req.session.username : "tmp-forks";
 
     // Find first non-existant new listname.
+    // TODO: Create new list name with random nouns. 
     let tmp_list_name = req.body.listname;
     let tmp_fork_counter = 0;
     let tmp_list_key = `list:${fork_name}:${tmp_list_name}`;
