@@ -87,13 +87,15 @@ router.post('/:username/:listname/save', async (req, res) => {
 router.post('/:username/:listname/rename', async (req, res) => {
 
     // Validate listname.
-    let list_validation = await validationUtil.validateListname(req.params.username, req.body.listname);
-    if (!list_validation.valid) {
-        res.send(list_validation.error);
-        // res.render('signup', {
-        //     'flashMsg': list_validation.error
-        // });
-        return;
+    if (req.params.username != "tmp-forks") {
+        let list_validation = await validationUtil.validateListname(req.params.username, req.body.listname);
+        if (!list_validation.valid) {
+            res.send(list_validation.error);
+            // res.render('signup', {
+            //     'flashMsg': list_validation.error
+            // });
+            return;
+        }
     }
 
     try {
