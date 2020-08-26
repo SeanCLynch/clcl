@@ -92,20 +92,21 @@ __Competitors (?):__
 
 MVP Requirements:
 
+For MVP:
+TODO: Add about (roadmap, description), bug report, support, terms, privacy, and social links to footer.
+TODO: Add favicon.
+
+For Marketing:
+TODO: Add legit checklist examples x10.
+TODO: Update checklist links on homepage.
+TODO: Share with various groups.
+
 For DevOps:
 TODO: Audit basic security measures. OWASP Top 10
 TODO: Test list title & desc edit.
-TODO: Test key validation.
+TODO: Test key validation methods.
 TODO: Test export mechanisms.
 
-For Marketing:
-TODO: Add roadmap & description to About page. 
-TODO: Landing page should be mobile-ready.
-TODO: Add legit checklist examples x10
-TODO: Share with various groups.
-TODO: Add support, terms, privacy, social, about links to footer.
-TODO: Add favicon.
-TODO: Add bug report page.
 ---
 
 FOR LATER:

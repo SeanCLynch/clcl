@@ -78,6 +78,7 @@ section {
 nav {
     background-color: darkviolet;
     display: flex;
+    justify-content: space-between;
     padding: 1rem;
     max-width: 800px;
     margin: 0 auto;
@@ -94,12 +95,44 @@ nav #logo {
     margin-right: 1rem;
 }
 
-nav #mainmenu {
+.desktop-menu {
+    display: none;
+}
+.desktop-menu div {
+    margin-left: 2rem;
+}
+
+#drop-down {
+    display: none;
+    background-color: darkviolet;
+    padding: 1rem;
+    padding-top: 0rem;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-direction: column;
+    text-align: right;
+}
+#drop-down a {
+    color: white !important;
+}
+#drop-down div {
+    margin-top: 0.5rem;
+}
+#drop-down.open {
     display: flex;
 }
-nav #mainmenu div {
-    margin-right: 1.5rem;
-    line-height:22px;
+
+@media (min-width:801px)  { 
+    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    #drop-down {
+        display: none !important;
+    }
+    #menu-button {
+        display: none !important;
+    }
+    .desktop-menu {
+        display: flex;
+    }
 }
 
 /* Landing Page */

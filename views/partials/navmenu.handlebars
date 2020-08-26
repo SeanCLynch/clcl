@@ -1,34 +1,48 @@
-<nav>
+<nav style="justify-content: space-between;">
+    
     <div id="logo">
         <a href="/">Checklisting.Club</a>
     </div>
-    <div id="mainmenu">
-        <div><a href="/random">Random List</a></div>
-        {{#if user}}
-        <div><a href="/u/{{ user }}">Dashboard</a></div>
-        <div><a href="/api/user/logout">Logout</a></div>
-        {{else}}
-        <div><a href="/signup">Signup</a></div>
-        <div><a href="/login">Login</a></div>
-        {{/if}}
+
+    <div class="top-bar-remainder">
+        <div class="desktop-menu">
+            <div><a href="/random">Random List</a></div>
+            {{#if user}}
+            <div><a href="/u/{{ user }}">Dashboard</a></div>
+            <div><a href="/api/user/logout">Logout</a></div>
+            {{else}}
+            <div><a href="/signup">Signup</a></div>
+            <div><a href="/login">Login</a></div>
+            {{/if}}
+        </div>
+        <div id="menu-button">
+            Menu
+        </div>
     </div>
-    <div id="menu-button">
-        Menu
-    </div>
+    
 </nav>
 
-{{!-- <nav style="/*! flex-direction: column; */justify-content: space-between;">
-            <div id="logo">
-                <a href="/">Checklisting.Club</a>
-            </div>
-            <div id="mainmenu" style="display: none;">
-                <div><a href="/random">Random List</a></div>
-                <div><a href="/signup">Signup</a></div>
-                <div><a href="/login">Login</a></div>
-            </div><div id="mainmenu" style="flex-direction: column;margin-top: 0.5rem;display: none;">
-                <div><a href="/random">Random List</a></div>
-                <div><a href="/signup">Signup</a></div>
-                <div><a href="/login">Login</a></div>
-            </div>
-        <div style="/*! display: flex; */">Menu
-</div></nav> --}}
+<div id="drop-down">
+    <div><a href="/random">Random List</a></div>
+    {{#if user}}
+    <div><a href="/u/{{ user }}">Dashboard</a></div>
+    <div><a href="/api/user/logout">Logout</a></div>
+    {{else}}
+    <div><a href="/signup">Signup</a></div>
+    <div><a href="/login">Login</a></div>
+    {{/if}}
+</div>
+
+<div id="alert-msg" style="display: none;">
+    Alert flash message here.
+</div>
+
+<script>
+    var menu_btn = document.querySelector('#menu-button');
+    menu_btn.addEventListener('click', function (event) {
+        
+        var main_menu = document.querySelector('#drop-down');
+        main_menu.classList.toggle('open');
+
+    });
+</script>
