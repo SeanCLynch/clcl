@@ -70,9 +70,6 @@ router.post('/:username/:listname/edit', async (req, res) => {
 router.post('/:username/:listname/delete', async (req, res) => {
     let item_text = req.body.deleteItem;
 
-    // Also delete list-info. 
-    let deleted_info = await redis.hdel(`list-info:${req.params.username}:${req.params.listname}`);
-
     redis.lrem(`list:${req.params.username}:${req.params.listname}`, 1, item_text, function (err, result) {
         res.redirect(`/cl/${req.params.username}/${req.params.listname}`);
     });
@@ -261,6 +258,10 @@ router.get('/download', async (req, res) => {
 // Delete the query-param specified list. 
 router.post('/:username/:listname/delete', async (req, res) => {
     let deleted = await redis.hincrby('stats:basic', 'delete_checklist', 1);
+
+    // Also delete list-info. 
+    let deleted_info = await redis.del(`list-info:${req.params.username}:${req.params.listname}`);
+
     redis.del(`list:${req.params.username}:${req.params.listname}`, function (err, results) {
         res.redirect('/');
     });
