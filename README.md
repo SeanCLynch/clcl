@@ -94,7 +94,6 @@ MVP Requirements:
 
 For MVP:
 TODO: Add about (roadmap, description), bug report, support, terms, privacy, and social links to footer.
-TODO: Add favicon.
 
 For Marketing:
 TODO: Add legit checklist examples x10.
