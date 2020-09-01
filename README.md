@@ -93,7 +93,9 @@ __Competitors (?):__
 MVP Requirements:
 
 For MVP:
-TODO: Add about (roadmap, description), bug report, support, terms, privacy, and social links to footer.
+TODO: Add bug report, support.
+TODO: Add terms, privacy
+TODO: Add social links to footer.
 
 For Marketing:
 TODO: Add legit checklist examples x10.

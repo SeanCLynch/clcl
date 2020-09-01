@@ -37,6 +37,28 @@ router.get('/login', async (req, res) => {
     res.render('login');
 });
 
+
+// Display about page. 
+router.get('/about', async (req, res) => {
+    res.render('about');
+});
+
+// Display support forms. 
+router.get('/support', async (req, res) => {
+    res.render('support');
+});
+
+// Display our legal terms. 
+router.get('/terms', async (req, res) => {
+    res.render('terms');
+});
+
+// Display our privacy terms.
+router.get('/privacy', async (req, res) => {
+    res.render('privacy');
+});
+
+
 // Fetches a random list from the current db.
 router.get('/random', async (req, res) => {
     let visited = await redis.hincrby('stats:basic', 'random_visit', 1);
