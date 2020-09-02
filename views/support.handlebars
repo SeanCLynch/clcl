@@ -1,6 +1,28 @@
 <section id="splash">
-    <div>Support & Bug Report</div>
+    <h2>Support & Bug Report</h2>
     <div class="desc">
-        
+        Accidents happen right? We all make mistakes. 
+        Here at Checklisting Club, we really, really want to know when we do.
+        So that we can fix them and get back to checklisting.
     </div>
+    <div class="desc">
+        Please submit your question, comment, concern, idea or constructive thought below!
+    </div>
+
+    <h2>Via Email</h2>
+    <a href="mailto:support@checklisting.club?subject=Feedback for Checklisting Club">
+        <button>Send us an email</button>
+    </a>
+
+    <h2>Via Form</h2>
+    <form action="/api/stats/supportreport" method="post">
+        
+        <input name="guestEmail" placeholder="Your Email Address">
+        </br>
+
+        <textarea name="guestMsg" rows="5" cols="60" placeholder="Your feedback here."></textarea>
+        </br>
+
+        <button name="sendFeedback" value="send">Send Feedback</button>
+    </form>
 </section>

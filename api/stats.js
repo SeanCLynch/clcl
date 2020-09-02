@@ -35,4 +35,17 @@ router.get('/basic', async (req, res) => {
     });
 });
 
+// Store feedback/support/bug reports.
+router.post('/supportreport', async (req, res) => {
+    let guest_email = req.body.guestEmail;
+    let guest_message = req.body.guestMsg;
+
+    let ran_int = Math.floor(Math.random() * Math.floor(100));
+    let tmp_key = "feedback:" + guest_email.substring(0, 3) + "-" + guest_message.substring(0, 3) + "-" + ran_int;
+
+    redis.hset(tmp_key, "email", guest_email, "message", guest_message, function (err, results) {
+        res.send("Thank you for your help!");
+    });
+});
+
 module.exports = router;
