@@ -56,6 +56,7 @@ router.post('/create', async (req, res) => {
     let bcrypt_hashed_pw = await bcrypt.hash(user_password, bcrypt_salt)
     
     let created = await redis.hincrby('stats:basic', 'create_user', 1);
+    let name_key = `users:${user_name}`;
     redis.hset(name_key, 'email', user_email, function (err, result) {
         redis.hset(auth_key, 'password', bcrypt_hashed_pw, 'namekey', name_key, function (err2, result2) {
             res.redirect(`/u/${user_name}`);
