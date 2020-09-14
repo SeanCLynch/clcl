@@ -24,16 +24,6 @@ router.post('/create', async (req, res) => {
     let username = req.body.username;
     let listname = req.body.listname;
 
-    // Validate username (should already be valid technically).
-    let user_validation = await validationUtil.validateUsername(username);
-    if (!user_validation.valid) {
-        res.send(user_validation.error);
-        // res.render('signup', {
-        //     'flashMsg': user_validation.error
-        // });
-        return;
-    }
-
     // Validate listname.
     let list_validation = await validationUtil.validateListname(username, listname);
     if (!list_validation.valid) {
