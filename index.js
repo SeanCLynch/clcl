@@ -64,4 +64,14 @@ app.use('/api/user/', users_controller);
 let checklists_controller = require('./api/checklists.js');
 app.use('/api/list/', checklists_controller);
 
+// 404 & 500 Routes --------------------------------------------------------------------------------
+
+app.use(function (req, res) {
+  res.status(404).send("404: Page not found!");
+});
+
+app.use(function (err, req, res) {
+  res.status(500).send("500: Something Broke!");
+});
+
 module.exports = app;
