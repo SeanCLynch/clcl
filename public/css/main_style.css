@@ -1,18 +1,23 @@
-/* Colors:
-    Main Purple - 9300D3 (darkviolet)
+.dark-purple {
+    background-color: #7851A8;
+}
+.light-purple {
+    background-color: #A37AC2;
+}
+.dark-orange {
+    background-color: #FFB346;
+}
+.light-orange {
+    background-color: #FFF09C;
+}
+.dark-blue {
+    background-color: #B2E2F0;
+}
+.light-blue {
+    background-color: #CCF4FA;
+}
 
-    Main Purple Hues Light - B719FC
-    Main Purple Hues Light - B304FF
-    Main Purple Hues Dark - 6F009F
-    Main Purple Hues Dark - 57007D
-
-    Adjacent Blue - 3B00D6
-    Adjacent Pink - E80076
-
-    Complimentary Yellow - F4FE00
-*/
-
-/* Global Styles */
+/* Global Styles -------------------------------------------------------------------------------- */
 
 html, body {
     height: 100%;
@@ -29,8 +34,9 @@ a:visited {
 
 button {
 	box-shadow:inset 0px 1px 0px 0px #efdcfb;
-	background:linear-gradient(to bottom, #B304FF 5%, darkviolet 100%);
-	background-color:#B304FF;
+	background:linear-gradient(to bottom, #A37AC2 5%, #7851A8 100%);
+    /* background-color:#B304FF; */
+    background-color: #A37AC2;
 	border-radius:5px;
 	border: none;
 	display:inline-block;
@@ -41,18 +47,18 @@ button {
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #9752cc;
+	text-shadow:0px 1px 0px ##A37AC2;
 }
 button:hover {
-	background:linear-gradient(to bottom, darkviolet 5%, #B304FF 100%);
-	background-color:darkviolet;
+	background:linear-gradient(to bottom, #7851A8 5%, #A37AC2 100%);
+	background-color:#7851A8;
 }
 button:active {
 	position:relative;
 	top:1px;
 }
 button.use-caution {
-    color: #F4FE00;
+    color: #FFF09C;
 }
 
      
@@ -73,10 +79,9 @@ section {
     margin-bottom: 1.5rem;
 }
 
-/* Navigation Menu */
+/* Navigation Menu ------------------------------------------------------------------------------ */
 
 nav {
-    background-color: darkviolet;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
@@ -104,7 +109,6 @@ nav #logo {
 
 #drop-down {
     display: none;
-    background-color: darkviolet;
     padding: 1rem;
     padding-top: 0rem;
     max-width: 800px;
@@ -135,7 +139,7 @@ nav #logo {
     }
 }
 
-/* Landing Page */
+/* Landing Page --------------------------------------------------------------------------------- */
 
 #splash {
     margin-top: 1rem;
@@ -186,7 +190,7 @@ nav #logo {
     margin-left: 0.5rem;
 }
 
-/* Dashboard Styles */
+/* Dashboard Styles ----------------------------------------------------------------------------- */
 
 #account div:first-child {
     font-size: 22px;
@@ -198,11 +202,11 @@ nav #logo {
     margin-bottom: 0.5rem;
 }
 
-/* Footer Menu */
+/* Footer Menu ---------------------------------------------------------------------------------- */
 
 #footer {
-    background-color: darkviolet;
     display: flex;
+    flex-wrap: wrap;
     padding: 1rem;
     max-width: 800px;
     margin: 0 auto;
@@ -215,24 +219,31 @@ nav #logo {
 
 #footer div {
     margin-right: 1.5rem;
+    margin-top: 0.25rem;
     line-height:22px;
 }
 
-/* Checklist Styles */
+/* Checklist Styles ----------------------------------------------------------------------------- */
 
 #list {
     margin-bottom: 1.5rem;
-    background-color: #d2d2d2;
+    margin-top: 1.5rem;
     padding: 1.5rem;
+    border: 4px solid #CCF4FA;
+    background-color: white;
+    border-radius: 4px;
 }
 
 #list .list-item {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+#list .list-item:last-child {
+    margin-bottom: 0rem;
 }
 
 #list .list-item label {
     position: relative;
-    top: -5px;
+    top: -3px;
 }
 
 .list-description {
@@ -240,14 +251,16 @@ nav #logo {
     font-size: 14px;
 }
 
-.list-controls {
-    display: flex;
+/* .list-controls {
+    /* display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-}
+    flex-wrap: wrap; */
+    /* text-align: right; */
+} */
 .controls {
     margin-bottom: 0.5rem;
     border-radius: 3px;
+    text-align: right;
 }
 
 #flash-msg {
