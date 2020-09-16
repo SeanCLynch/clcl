@@ -47,7 +47,7 @@ button {
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px ##A37AC2;
+	text-shadow:0px 1px 0px #A37AC2;
 }
 button:hover {
 	background:linear-gradient(to bottom, #7851A8 5%, #A37AC2 100%);
@@ -251,12 +251,6 @@ nav #logo {
     font-size: 14px;
 }
 
-/* .list-controls {
-    /* display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; */
-    /* text-align: right; */
-} */
 .controls {
     margin-bottom: 0.5rem;
     border-radius: 3px;
