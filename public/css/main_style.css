@@ -265,3 +265,15 @@ nav #logo {
     margin-top: 1rem;
     margin-left: 1rem;
 }
+
+/* CLUI Styles ---------------------------------------------------------------------------------- */
+
+#clui {
+    position: relative;
+}
+
+.suggestions-holder {
+    background-color: lightcoral;
+    position: absolute;
+    bottom: 32px;
+}

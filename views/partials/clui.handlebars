@@ -1,0 +1,65 @@
+<div id="clui">
+    <input type='text'>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var typeArea = document.querySelector('#clui input');
+        typeArea.addEventListener('keyup', function (event) {
+            let matching_cmds = provideAutocomplete(event.target.value);
+            displaySuggestions(matching_cmds);
+        });
+
+        let valid_cmds = [
+            'add',
+            'edit',
+            'delete',
+
+            'fork', 
+            'export',
+            'save',
+            'rename',
+            'description'
+        ];
+
+        var displaySuggestions = function (matching_cmds) {
+            let holder = document.createElement('div');
+            holder.setAttribute('class', 'suggestions-holder')
+            
+            matching_cmds.forEach(function(cmd, idx) {
+                var cmd_div = document.createElement('div');
+                cmd_div.setAttribute('class', 'suggested-cmd');
+                cmd_div.textContent = cmd;
+                holder.appendChild(cmd_div);
+            });
+
+            let old_holder = document.querySelector('#clui .suggestions-holder');
+            if (old_holder) {
+                typeArea.parentNode.removeChild(old_holder);
+            }
+            
+            typeArea.parentNode.insertBefore(holder, typeArea);
+        }
+
+        var provideAutocomplete = function (current_input) {
+
+            let matching_cmds = ['add', 'edit', 'export', 'fork'];
+
+            // If no input, provide default/most common commands. 
+            if (current_input.length == 0) {
+                return matching_cmds;
+            }
+
+            // Otherwise, check input vs known commands. 
+            matching_cmds = valid_cmds.reduce(function (acc, cmd, idx) {
+                if (cmd.includes(current_input)) {
+                    acc.push(cmd);
+                }
+                return acc;
+            }, []);
+
+            return matching_cmds;
+
+        }
+    });
+</script>
