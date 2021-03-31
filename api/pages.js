@@ -107,7 +107,8 @@ router.get('/cl/:username/:listname', async (req, res) => {
                     "list": result,
                     "listInfo": result2,
                     "username": req.params.username,
-                    "listname": req.params.listname
+                    "listname": req.params.listname,
+                    "forkIconUrl": 'http://' + process.env.HOSTURL + '/icons/iconmonstr-code-fork-white.svg'
                 });
             });
         }

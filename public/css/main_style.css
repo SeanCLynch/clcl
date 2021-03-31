@@ -45,7 +45,7 @@ button {
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:6px 24px;
+	padding:8px 20px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #A37AC2;
 }
@@ -225,6 +225,13 @@ nav #logo {
 
 /* Checklist Styles ----------------------------------------------------------------------------- */
 
+.list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 #list {
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
@@ -264,6 +271,14 @@ nav #logo {
 .list-entry {
     margin-top: 1rem;
     margin-left: 1rem;
+}
+
+#fork-list-btn {
+    display: flex;
+    align-items: center;
+}
+#fork-list-btn img {
+    margin-left: 6px; 
 }
 
 /* CLUI Styles ---------------------------------------------------------------------------------- */

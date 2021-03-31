@@ -1,4 +1,12 @@
-<h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
+<div class="list-header">
+    <h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
+    <form action="/api/list/fork" method="post">
+        <input name="listname" type="hidden" value="{{ listname }}" />
+        <input name="username" type="hidden" value="{{ username }}" />
+        <button id="fork-list-btn" name="fork-list">Fork List <img width="20" height="20" src="{{ forkIconUrl }}" /></button>
+    </form>
+</div>
+
 
 <div class="list-description">
     {{ listInfo.description }}
