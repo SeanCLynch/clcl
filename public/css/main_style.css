@@ -235,14 +235,20 @@ nav #logo {
 #list {
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
-    padding: 1.5rem;
-    border: 4px solid #CCF4FA;
-    background-color: white;
-    border-radius: 4px;
+    /* padding: 1.5rem; */
+    /* border: 4px solid #CCF4FA; */
 }
 
 #list .list-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: white;
+    border: 3px solid white;
+
+}
+#list .list-item.active {
+    border: 3px solid #A37AC2;
 }
 #list .list-item:last-child {
     margin-bottom: 0rem;
@@ -273,12 +279,18 @@ nav #logo {
     margin-left: 1rem;
 }
 
-#fork-list-btn {
+.list-top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-action-btn {
     display: flex;
     align-items: center;
 }
-#fork-list-btn img {
-    margin-left: 6px; 
+.list-action-btn img {
+    margin-right: 6px;
 }
 
 /* CLUI Styles ---------------------------------------------------------------------------------- */

@@ -3,24 +3,64 @@
     <form action="/api/list/fork" method="post">
         <input name="listname" type="hidden" value="{{ listname }}" />
         <input name="username" type="hidden" value="{{ username }}" />
-        <button id="fork-list-btn" name="fork-list">Fork List <img width="20" height="20" src="{{ forkIconUrl }}" /></button>
+        
     </form>
 </div>
 
-
-<div class="list-description">
-    {{ listInfo.description }}
+<div class="list-top-header">
+    <button id="run-list-btn" class="list-action-btn" name="run-list"><img width="20" height="20" src="{{ runIconUrl }}" /> Use List </button>
+    <button id="fork-list-btn" class="list-action-btn" name="fork-list"><img width="20" height="20" src="{{ forkIconUrl }}" /> Fork List </button>
 </div>
 
-<div class="list-controls">
-    
-    <div class="controls list-ctrls">
-        <form action="/api/list/fork" method="post">
-            <input name="listname" type="hidden" value="{{ listname }}" />
-            <input name="username" type="hidden" value="{{ username }}" />
-            <button name="fork-list">Fork List</button>
-        </form>
+
+
+<div id="list">
+{{#each list}}
+    <div class="list-item">
+        {{ this }}
+        {{!-- <input name="" type="checkbox">
+        <label for="">{{ this }}</label> --}}
     </div>
+{{/each}}
+</div>
+
+{{#if (userOwnsList user username) }}
+<div class="controls item-ctrls">
+    <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
+        <button id="add-item-btn" class="list-action-btn" name="additem" value="add"><img width="20" height="20" src="{{ addIconUrl }}" /> Add Item </button>
+    </form>
+</div>
+
+<div class="controls item-ctrls">
+    <form action="/api/list/{{ username }}/{{ listname }}/edit" method="post">
+        <select name="editItem">
+            <option value="">Please select an item to edit</option>
+            {{#each list}}
+                <option value="{{ @index }}">{{ this }}</option>
+            {{/each}}
+        </select>
+
+        <input name="editItemText" placeholder="Edit text here">
+
+        <button name="edit-item" value="edit">Edit Item</button>
+    </form>
+</div>
+
+<div class="controls item-ctrls">
+    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
+        <select name="deleteItem">
+            <option value="">Please select an item to delete</option>
+            {{#each list}}
+                <option value="{{ this }}">{{ this }}</option>
+            {{/each}}
+        </select>
+
+        <button name="delete-item" class="use-caution" value="delete">Delete Item</button>
+    </form>
+</div>
+{{/if}}
+
+<div class="list-controls">
 
     <div class="controls list-ctrls">
         <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
@@ -64,50 +104,9 @@
     {{/if}}
 </div>
 
-<div id="list">
-{{#each list}}
-    <div class="list-item">
-        <input name="" type="checkbox">
-        <label for="">{{ this }}</label>
-    </div>
-{{/each}}
+<div class="list-description">
+    {{ listInfo.description }}
 </div>
-
-{{#if (userOwnsList user username) }}
-<div class="controls item-ctrls">
-    <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
-        <button name="additem" value="add">Add Item</button>
-    </form>
-</div>
-
-<div class="controls item-ctrls">
-    <form action="/api/list/{{ username }}/{{ listname }}/edit" method="post">
-        <select name="editItem">
-            <option value="">Please select an item to edit</option>
-            {{#each list}}
-                <option value="{{ @index }}">{{ this }}</option>
-            {{/each}}
-        </select>
-
-        <input name="editItemText" placeholder="Edit text here">
-
-        <button name="edit-item" value="edit">Edit Item</button>
-    </form>
-</div>
-
-<div class="controls item-ctrls">
-    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
-        <select name="deleteItem">
-            <option value="">Please select an item to delete</option>
-            {{#each list}}
-                <option value="{{ this }}">{{ this }}</option>
-            {{/each}}
-        </select>
-
-        <button name="delete-item" class="use-caution" value="delete">Delete Item</button>
-    </form>
-</div>
-{{/if}}
 
 {{#unless (userOwnsList user username) }}
 <section id="flash-msg">

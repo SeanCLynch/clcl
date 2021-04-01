@@ -92,6 +92,8 @@ __Competitors (?):__
 
 MVP Requirements:
 
+TODO: Add more icons from iconmonstr, convert to white with inkscape.
+
 For Marketing:
 TODO: Add legit checklist examples x10.
 TODO: Update checklist links on homepage.

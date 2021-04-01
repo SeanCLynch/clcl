@@ -108,7 +108,9 @@ router.get('/cl/:username/:listname', async (req, res) => {
                     "listInfo": result2,
                     "username": req.params.username,
                     "listname": req.params.listname,
-                    "forkIconUrl": 'http://' + process.env.HOSTURL + '/icons/iconmonstr-code-fork-white.svg'
+                    "forkIconUrl": 'http://' + process.env.HOSTURL + '/icons/fork-white.svg',
+                    "addIconUrl": 'http://' + process.env.HOSTURL + '/icons/add-white.svg',
+                    "runIconUrl": 'http://' + process.env.HOSTURL + '/icons/run-white.svg',
                 });
             });
         }
