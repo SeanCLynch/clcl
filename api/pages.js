@@ -111,6 +111,9 @@ router.get('/cl/:username/:listname', async (req, res) => {
                     "forkIconUrl": 'http://' + process.env.HOSTURL + '/icons/fork-white.svg',
                     "addIconUrl": 'http://' + process.env.HOSTURL + '/icons/add-white.svg',
                     "runIconUrl": 'http://' + process.env.HOSTURL + '/icons/run-white.svg',
+                    "deleteIconUrl": 'http://' + process.env.HOSTURL + '/icons/delete-white.svg',
+                    "exportIconUrl": 'http://' + process.env.HOSTURL + '/icons/export-white.svg',
+                    "editIconUrl": 'http://' + process.env.HOSTURL + '/icons/edit-list-white.svg',
                 });
             });
         }

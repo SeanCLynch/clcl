@@ -1,18 +1,15 @@
 <div class="list-header">
-    <h2><a href="/u/{{ username }}">{{ username }}</a> : {{ listname }}</h2>
-    <form action="/api/list/fork" method="post">
-        <input name="listname" type="hidden" value="{{ listname }}" />
-        <input name="username" type="hidden" value="{{ username }}" />
-        
-    </form>
+    <h2><a href="/u/{{ username }}">{{ username }}</a> | {{ listname }}</h2>
 </div>
 
 <div class="list-top-header">
-    <button id="run-list-btn" class="list-action-btn" name="run-list"><img width="20" height="20" src="{{ runIconUrl }}" /> Use List </button>
-    <button id="fork-list-btn" class="list-action-btn" name="fork-list"><img width="20" height="20" src="{{ forkIconUrl }}" /> Fork List </button>
+    <form action="/api/list/fork" method="post">
+        <input name="listname" type="hidden" value="{{ listname }}" />
+        <input name="username" type="hidden" value="{{ username }}" />
+        <button id="fork-list-btn" class="icon-btn" name="fork-list"><img width="20" height="20" src="{{ forkIconUrl }}" /> Fork List </button>
+    </form>
+    <button id="run-list-btn" class="icon-btn" name="run-list"><img width="20" height="20" src="{{ runIconUrl }}" /> Use List </button>
 </div>
-
-
 
 <div id="list">
 {{#each list}}
@@ -21,17 +18,32 @@
         {{!-- <input name="" type="checkbox">
         <label for="">{{ this }}</label> --}}
     </div>
+    <hr>
 {{/each}}
 </div>
 
-{{#if (userOwnsList user username) }}
-<div class="controls item-ctrls">
+{{#if listInfo.description }}
+{{!-- <div class="list-header">
+    <h3>Description</h3>
+</div> --}}
+
+<div class="list-description">
+    {{ listInfo.description }}
+</div>
+{{/if}}
+
+
+<div class="list-top-header">
     <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
-        <button id="add-item-btn" class="list-action-btn" name="additem" value="add"><img width="20" height="20" src="{{ addIconUrl }}" /> Add Item </button>
+        <button id="add-item-btn" class="icon-btn" name="additem" value="add"><img width="20" height="20" src="{{ addIconUrl }}" /> Add Item </button>
     </form>
+    <button id="delete-item-btn" name="delete-item" class="list-item-btn icon-btn use-caution" value="delete"><img width="20" height="20" src="{{ deleteIconUrl }}" /> Delete Item</button>
+    <button class="list-item-btn icon-btn"><img width="20" height="20" src="{{ editIconUrl }}" /> Edit Item </button>
 </div>
 
-<div class="controls item-ctrls">
+{{#if (userOwnsList user username) }}
+
+{{!-- <div class="controls item-ctrls">
     <form action="/api/list/{{ username }}/{{ listname }}/edit" method="post">
         <select name="editItem">
             <option value="">Please select an item to edit</option>
@@ -42,12 +54,55 @@
 
         <input name="editItemText" placeholder="Edit text here">
 
-        <button name="edit-item" value="edit">Edit Item</button>
+        <button id="edit-item-btn" class="icon-btn" name="edit-item" value="edit"><img width="20" height="20" src="{{ editIconUrl }}" /> Edit Item</button>
     </form>
-</div>
+</div> --}}
 
-<div class="controls item-ctrls">
-    <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
+
+{{/if}}
+
+{{#if (userOwnsList user username) }}
+<div class="list-controls">
+
+    <div class="list-header">
+        <h3>List Controls</h3>
+    </div>
+
+    <div class="save-controls">
+        <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
+            <button name="save-list">Save List</button>
+        </form>
+    </div>
+
+    <div class="export-controls">
+        <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
+            <select name="exportFormat">
+                <option value="">File format</option>
+                <option value="txt">txt</option>
+                <option value="csv">csv</option>
+                <option value="pdf">pdf</option>
+            </select>
+
+            <button class="icon-btn" name="export-data" value="edit"><img width="20" height="20" src="{{ exportIconUrl }}" /> Export Data</button>
+        </form>
+    </div>
+
+    <div class="rename-controls">
+        <form action="/api/list/{{ username }}/{{ listname }}/rename" method="post">
+            <input name="listname" value="{{ listname }}" />
+            <button name="rename-list">Rename List</button>
+        </form>
+    </div>
+
+    <div class="desc-controls">
+        <form action="/api/list/{{ username }}/{{ listname }}/description" method="post">
+            <input name="listdesc" value="{{ listInfo.description }}" />
+            <button name="edit-list-desc">Edit List Description</button>
+        </form>
+    </div>
+
+    <div class="delete-controls">
+        <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
         <select name="deleteItem">
             <option value="">Please select an item to delete</option>
             {{#each list}}
@@ -55,58 +110,13 @@
             {{/each}}
         </select>
 
-        <button name="delete-item" class="use-caution" value="delete">Delete Item</button>
+        <button id="delete-item-btn" name="delete-item" class="icon-btn use-caution" value="delete"><img width="20" height="20" src="{{ deleteIconUrl }}" /> Delete Item</button>
     </form>
-</div>
-{{/if}}
-
-<div class="list-controls">
-
-    <div class="controls list-ctrls">
-        <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
-            <select name="exportFormat">
-                <option value="">Please select a data format</option>
-                <option value="txt">txt</option>
-                <option value="csv">csv</option>
-                <option value="pdf">pdf</option>
-            </select>
-
-            <button name="export-data" value="edit">Export Data</button>
-        </form>
-    </div>
-
-    {{#if (userOwnsList user username) }}
-    <div class="controls list-ctrls">
-        <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
-            <button name="save-list">Save List</button>
-        </form>
-    </div>
-
-    <div class="controls list-ctrls">
-        <form action="/api/list/{{ username }}/{{ listname }}/rename" method="post">
-            <input name="listname" value="{{ listname }}" />
-            <button name="rename-list">Rename List</button>
-        </form>
-    </div>
-
-    <div class="controls list-ctrls">
-        <form action="/api/list/{{ username }}/{{ listname }}/description" method="post">
-            <input name="listdesc" value="{{ listInfo.description }}" />
-            <button name="edit-list-desc">Edit List Description</button>
-        </form>
-    </div>
-
-    <div class="controls list-ctrls">
-        <form action="/api/list/{{ username }}/{{ listname }}/delete" method="post">
-            <button class="use-caution" name="delete" value="delete">Delete List</button>
-        </form>
     </div>
     {{/if}}
 </div>
 
-<div class="list-description">
-    {{ listInfo.description }}
-</div>
+
 
 {{#unless (userOwnsList user username) }}
 <section id="flash-msg">

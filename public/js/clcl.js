@@ -12,9 +12,18 @@ document.addEventListener('DOMContentLoaded', function () {
         item.addEventListener('click', function (event) {
             item.classList.toggle('active');
 
+            var num_items_selected = document.querySelectorAll('.active').length;
+
             // show edit btn if 1 selected.
+            var edit_btn = item.nextElementSibling;
+            if (num_items_selected == 1) {
+                edit_btn.classList.remove('is-hidden');
+            } else {
+                edit_btn.classList.add('is-hidden');
+            }
 
             // show delete "X" if >= 1 selected.
+            
         });
     });
 });

@@ -32,6 +32,10 @@ a:visited {
     color: darkviolet;
 }
 
+.is-hidden {
+    display: none !important;
+}
+
 button {
 	box-shadow:inset 0px 1px 0px 0px #efdcfb;
 	background:linear-gradient(to bottom, #A37AC2 5%, #7851A8 100%);
@@ -60,7 +64,13 @@ button:active {
 button.use-caution {
     color: #FFF09C;
 }
-
+button.icon-btn {
+    display: flex;
+    align-items: center;
+}
+button.icon-btn img {
+    margin-right: 6px;
+}
      
 
 body {
@@ -68,7 +78,7 @@ body {
 }
 
 #body {
-    padding: 1rem;
+    /* padding: 1rem; */
     background-color: #F6F6F6;
     color: #333;
     max-width: 800px;
@@ -77,6 +87,13 @@ body {
 
 section {
     margin-bottom: 1.5rem;
+}
+
+hr {
+    width: 100%;
+    height: 0;
+    margin: 0;
+    border: 0;
 }
 
 /* Navigation Menu ------------------------------------------------------------------------------ */
@@ -229,18 +246,24 @@ nav #logo {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #list {
-    margin-bottom: 1.5rem;
     margin-top: 1.5rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
     /* padding: 1.5rem; */
     /* border: 4px solid #CCF4FA; */
+    display: flex;
+    flex-flow: wrap;
 }
 
 #list .list-item {
+    /* flex: 2 1 auto; */
+    width: 100%;
     margin-bottom: 1rem;
+    margin-right: 1rem;
     padding: 8px;
     border-radius: 6px;
     background-color: white;
@@ -258,10 +281,101 @@ nav #logo {
     position: relative;
     top: -3px;
 }
+#list .list-item-btn {
+    flex: 0 1 auto;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
 
 .list-description {
-    margin-bottom: 2rem;
+    margin: 0rem 2rem;
+    margin-bottom: 1rem;
     font-size: 14px;
+}
+
+.list-controls {
+    background: white;
+}
+
+.export-controls form {
+    display: flex;
+    align-items: unset;
+    margin: 0 1rem;
+    padding-top: 1rem;
+}
+.export-controls form select {
+    margin-right: 1rem;
+    flex: 0 1 auto;
+}
+.export-controls form button {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.save-controls form {
+    display: flex;
+    align-items: unset;
+    margin: 0 1rem;
+    /* padding-top: 1rem; */
+}
+.save-controls form button {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.rename-controls form {
+    display: flex;
+    align-items: unset;
+    margin: 0 1rem;
+    padding-top: 1rem;
+}
+.rename-controls form input {
+    margin-right: 1rem;
+    flex: 0 1 auto;
+}
+.rename-controls form button {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.desc-controls form {
+    display: flex;
+    align-items: unset;
+    margin: 0 1rem;
+    padding-top: 1rem;
+}
+.desc-controls form input {
+    margin-right: 1rem;
+    flex: 0 1 auto;
+}
+.desc-controls form button {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.delete-controls form {
+    display: flex;
+    align-items: unset;
+    margin: 0 1rem;
+    padding-top: 1rem;
+}
+.delete-controls form select {
+    margin-right: 1rem;
+    flex: 0 1 auto;
+}
+.delete-controls form button {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .controls {
@@ -283,14 +397,7 @@ nav #logo {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.list-action-btn {
-    display: flex;
-    align-items: center;
-}
-.list-action-btn img {
-    margin-right: 6px;
+    margin: 0 1rem;
 }
 
 /* CLUI Styles ---------------------------------------------------------------------------------- */
