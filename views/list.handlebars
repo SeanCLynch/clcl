@@ -1,5 +1,5 @@
 <div class="list-header">
-    <h2><a href="/u/{{ username }}">{{ username }}</a> | {{ listname }}</h2>
+    <h3><a href="/u/{{ username }}">{{ username }}</a> | {{ listname }}</h3>
 </div>
 
 <div class="list-top-header">
@@ -10,6 +10,14 @@
     </form>
     <button id="run-list-btn" class="icon-btn" name="run-list"><img width="20" height="20" src="{{ runIconUrl }}" /> Use List </button>
 </div>
+
+{{#unless (userOwnsList user username) }}
+<div id="flash-msg">
+    <div>
+        Please fork this list or create an account in order to add/edit/delete checklist items.
+    </div>
+</div>
+{{/unless}}
 
 <div id="list">
 {{#each list}}
@@ -22,24 +30,27 @@
 {{/each}}
 </div>
 
-{{#if listInfo.description }}
-{{!-- <div class="list-header">
-    <h3>Description</h3>
-</div> --}}
-
-<div class="list-description">
-    {{ listInfo.description }}
-</div>
-{{/if}}
-
-
-<div class="list-top-header">
+<div class="list-bot-footer">
     <form action="/api/list/{{ username }}/{{ listname }}/add" method="post">
         <button id="add-item-btn" class="icon-btn" name="additem" value="add"><img width="20" height="20" src="{{ addIconUrl }}" /> Add Item </button>
     </form>
-    <button id="delete-item-btn" name="delete-item" class="list-item-btn icon-btn use-caution" value="delete"><img width="20" height="20" src="{{ deleteIconUrl }}" /> Delete Item</button>
-    <button class="list-item-btn icon-btn"><img width="20" height="20" src="{{ editIconUrl }}" /> Edit Item </button>
+    <button id="edit-item-btn" class="is-hidden list-item-btn icon-btn"><img width="20" height="20" src="{{ editIconUrl }}" /> Edit Item </button>
+    <button id="delete-item-btn" class="is-hidden list-item-btn icon-btn use-caution" name="delete-item" value="delete"><img width="20" height="20" src="{{ deleteIconUrl }}" /> Delete Item</button>
 </div>
+
+<div class="list-description">
+{{#if listInfo.description }}
+    <div class="desc-header">
+        <div>LIST DESCRIPTION</div>
+    </div>
+
+    <div class="list-description">
+        {{ listInfo.description }}
+    </div>
+{{/if}}
+</div>
+
+
 
 {{#if (userOwnsList user username) }}
 
@@ -68,11 +79,11 @@
         <h3>List Controls</h3>
     </div>
 
-    <div class="save-controls">
+    {{!-- <div class="save-controls">
         <form action="/api/list/{{ username }}/{{ listname }}/save" method="post">
-            <button name="save-list">Save List</button>
+            <button class="icon-btn" name="save-list"><img width="20" height="20" src="{{ editIconUrl }}" /> Save List</button>
         </form>
-    </div>
+    </div> --}}
 
     <div class="export-controls">
         <form action="/api/list/{{ username }}/{{ listname }}/export" method="get">
@@ -90,14 +101,14 @@
     <div class="rename-controls">
         <form action="/api/list/{{ username }}/{{ listname }}/rename" method="post">
             <input name="listname" value="{{ listname }}" />
-            <button name="rename-list">Rename List</button>
+            <button class="icon-btn" name="rename-list"><img width="20" height="20" src="{{ editIconUrl }}" /> Rename List</button>
         </form>
     </div>
 
     <div class="desc-controls">
         <form action="/api/list/{{ username }}/{{ listname }}/description" method="post">
             <input name="listdesc" value="{{ listInfo.description }}" />
-            <button name="edit-list-desc">Edit List Description</button>
+            <button class="icon-btn" name="edit-list-desc"><img width="20" height="20" src="{{ editIconUrl }}" /> Edit List Description</button>
         </form>
     </div>
 
@@ -114,16 +125,12 @@
     </form>
     </div>
     {{/if}}
+
+    
 </div>
 
 
 
-{{#unless (userOwnsList user username) }}
-<section id="flash-msg">
-    <div>
-        Please fork this list or create an account in order to add/edit/delete checklist items.
-    </div>
-</section>
-{{/unless}}
 
-{{> clui }}
+
+{{!-- {{> clui }} --}}

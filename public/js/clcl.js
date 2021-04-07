@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var num_items_selected = document.querySelectorAll('.active').length;
 
-            // show edit btn if 1 selected.
-            var edit_btn = item.nextElementSibling;
+            // show edit btn if 1 & only 1 selected.
+            var edit_btn = document.querySelector('#edit-item-btn');
             if (num_items_selected == 1) {
                 edit_btn.classList.remove('is-hidden');
             } else {
@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // show delete "X" if >= 1 selected.
+            var delete_btn = document.querySelector('#delete-item-btn');
+            if (num_items_selected == 1) {
+                delete_btn.classList.remove('is-hidden');
+            } else {
+                delete_btn.classList.add('is-hidden');
+            }
             
         });
     });

@@ -78,7 +78,7 @@ body {
 }
 
 #body {
-    /* padding: 1rem; */
+    padding: 1rem;
     background-color: #F6F6F6;
     color: #333;
     max-width: 800px;
@@ -235,9 +235,8 @@ nav #logo {
 }
 
 #footer div {
-    margin-right: 1.5rem;
-    margin-top: 0.25rem;
-    line-height:22px;
+    margin: 0.5rem;
+    line-height: 22px;
 }
 
 /* Checklist Styles ----------------------------------------------------------------------------- */
@@ -295,13 +294,14 @@ nav #logo {
 
 .list-controls {
     background: white;
+    padding-bottom:1rem;
 }
 
 .export-controls form {
     display: flex;
     align-items: unset;
     margin: 0 1rem;
-    padding-top: 1rem;
+    /* padding-top: 1rem; */
 }
 .export-controls form select {
     margin-right: 1rem;
@@ -386,6 +386,7 @@ nav #logo {
 
 #flash-msg {
     color: red;
+    padding: 1rem 1rem 0rem;
 }
 
 .list-entry {
@@ -393,12 +394,34 @@ nav #logo {
     margin-left: 1rem;
 }
 
-.list-top-header {
+.list-top-header, .list-bot-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 1rem;
+    margin: 0rem 1rem 1rem;
 }
+
+.list-description {
+    margin-top: 1rem;
+}
+.list-bot-footer form {
+    margin-right: 0.5rem;
+    justify-content: center;
+}
+.list-bot-footer button {
+    margin-right: 0.5rem;
+    justify-content: center;
+}
+.list-bot-footer #add-item-btn {
+    width: 100%;
+}
+.desc-header {
+    opacity: 0.75;
+}
+.desc-header div {
+    border-bottom: 1px solid rgba(00, 00, 00, 0.4);
+}
+
 
 /* CLUI Styles ---------------------------------------------------------------------------------- */
 
