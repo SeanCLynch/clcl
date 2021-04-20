@@ -32,4 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
         });
     });
+
+    var edit_btn;
+    var delete_btn;
 });
